@@ -24,17 +24,18 @@ class App extends Component {
     render() {
         return (
             <div className="container">
-                <div className="panel panel-default">
-                    <div className="panel-heading">
-                        <h3 className="panel-title">Your Meetings</h3>
+                <div className="message">
+                    <div className="message-header">
+                        <h3>Your Meetings</h3>
                     </div>
-                    <div className="panel-body">
+                    <div className="message-body">
                         <h4>
                             <Link to="/create">
-                                <span className="glyphicone glyphicon-plus-sign" aria-hidden="true">Add Meeting</span>
+                                Add Meeting
+                                <span className="icon"><i className="fas fa-plus"/></span>
                             </Link>
                         </h4>
-                        <table className="table table-stripe">
+                        <table className="table is-striped">
                             <thead>
                             <tr>
                                 <th>ISBN</th>

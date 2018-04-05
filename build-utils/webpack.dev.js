@@ -6,13 +6,12 @@ const extractSass = new ExtractTextPlugin({
     filename: "styles.css",
 });
 
-
 const webpack = require('webpack');
 
 const config = {
     entry: {
         app: [
-            `${commonPaths.appEntry}/index.js`
+            `${commonPaths.appEntry}/index.js`,
         ]
     },
     mode: 'development',
@@ -23,7 +22,7 @@ const config = {
     module: {
         rules: [
             {
-                test: /\.scss$/,
+                test: /\.sa?c?ss$/,
                 use: extractSass.extract({
                     fallback: 'style-loader',
                     //resolve-url-loader may be chained before sass-loader if necessary
@@ -38,11 +37,6 @@ const config = {
         ]
     },
     plugins: [
-        new webpack.ProvidePlugin({
-            $: "jquery", // Used for Bootstrap JavaScript components
-            jQuery: "jquery", // Used for Bootstrap JavaScript components
-            Popper: ['popper.js', 'default'] // Used for Bootstrap dropdown, popup and tooltip JavaScript components
-        }),
         extractSass
     ],
 };
