@@ -59,7 +59,6 @@ const config = {
     plugins: [
         new HtmlWebpackPlugin({
             template: commonPaths.appEntry + '/views/index.html',
-            favicon: commonPaths.appEntry + '/views/favicon.ico'
         })
     ]
 };
