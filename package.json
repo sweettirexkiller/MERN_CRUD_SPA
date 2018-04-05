@@ -13,6 +13,7 @@
     "nodemon": "^1.17.3",
     "popper.js": "^1.14.3",
     "precss": "^3.1.2",
+    "querystring": "^0.2.0",
     "react": "^16.3.0",
     "react-bootstrap": "^0.32.1",
     "react-dom": "^16.3.0",
