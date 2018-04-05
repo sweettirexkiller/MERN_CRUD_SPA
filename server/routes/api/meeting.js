@@ -1,10 +1,10 @@
 var express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
+var Meeting = require('../../../models/Meeting');
 
-/* GET home page */
-router.get('/', function (req, res) {
-    res.send('Express REST API');
-});
+
+
+
 
 module.exports = router;
