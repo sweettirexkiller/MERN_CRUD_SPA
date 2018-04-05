@@ -6,10 +6,13 @@
     "axios": "^0.18.0",
     "babel-cli": "^6.26.0",
     "body-parser": "^1.18.2",
-    "bootstrap": "^4.0.0",
+    "bootstrap": "^4.0.0-beta",
     "express": "^4.16.3",
+    "jquery": "^3.3.1",
     "mongoose": "^5.0.13",
     "nodemon": "^1.17.3",
+    "popper.js": "^1.14.3",
+    "precss": "^3.1.2",
     "react": "^16.3.0",
     "react-bootstrap": "^0.32.1",
     "react-dom": "^16.3.0",
@@ -21,11 +24,8 @@
     "semantic-ui-react": "^0.79.0"
   },
   "scripts": {
-    "dev": "webpack-dev-server --env.env=dev",
-    "dev:bundleanalyzer": "yarn dev --env.addons=bundleanalyzer",
-    "prebuild": "rimraf dist",
-    "build": "cross-env NODE_ENV=production webpack -p --env.env=prod",
-    "build:bundleanalyzer": "yarn build --env.addons=bundleanalyzer"
+    "dev": "rimraf dist && webpack --env.env=dev",
+    "start": "yarn dev && nodemon --exec babel-node -- bin/www"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",

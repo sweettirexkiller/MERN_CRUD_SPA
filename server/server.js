@@ -1,13 +1,13 @@
-const express = require('express');
-const router = require('./routes/routes.js');
-let commonPath = require('../build-utils/common-path');
+var express = require('express');
+var router = require('./routes/routes.js');
+var commonPath = require('../build-utils/common-path');
 
-let app = express();
+var app = express();
 
 app.set('view engine', 'ejs');
-app.set('views', commonPath.appEntry);
-app.use(express.static(commonPath.appEntry));
+app.set('views', commonPath.outputPath);
+app.use(express.static(commonPath.outputPath));
 
 app.use('/', router);
 
-export default app;
+module.exports = app;

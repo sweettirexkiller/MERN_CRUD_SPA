@@ -1,6 +1,8 @@
 const commonPaths = require('./common-path');
 
 const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
 
 const config = {
     entry: {},
@@ -16,7 +18,25 @@ const config = {
                 use: ['babel-loader']
             },
         ]
-    }
+    },
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                vendor: {
+                    chunks: 'initial',
+                    test: 'vendor',
+                    name: 'vendor',
+                    enforce: true
+                }
+            }
+        }
+    },
+    plugins: [
+        new HtmlWebpackPlugin({
+            template: commonPaths.appEntry + '/views/index.html',
+            filename: 'index.ejs'
+        })
+    ]
 };
 
 module.exports = config;
