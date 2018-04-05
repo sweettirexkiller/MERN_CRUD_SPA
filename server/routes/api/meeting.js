@@ -36,7 +36,7 @@ router.put('/:id', function (req, res, next) {
 });
 
 /* DELETE MEETING */
-router.delet ('/:id', function (req, res, next) {
+router.delete('/:id', function (req, res, next) {
     Meeting.findByIdAndRemove(req.params.id, req.body, function (err, meeting) {
         if (err) return next(err);
         res.json(meeting);
