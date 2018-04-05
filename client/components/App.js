@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
+import {Container, Message, Table} from 'semantic-ui-react';
 import axios from 'axios';
+
 
 import '../styles/App.scss';
 
@@ -21,46 +23,40 @@ class App extends Component {
             });
     }
 
+
     render() {
         return (
-            <div className="container">
-                <div className="message">
-                    <div className="message-header">
-                        <h3>Your Meetings</h3>
-                    </div>
-                    <div className="message-body">
-                        <h4>
-                            <Link to="/create">
-                                Add Meeting
-                                <span className="icon"><i className="fas fa-plus"/></span>
-                            </Link>
-                        </h4>
-                        <table className="table is-striped">
-                            <thead>
-                            <tr>
-                                <th>ISBN</th>
-                                <th>FIRST NAME</th>
-                                <th>LAST NAME</th>
-                                <th>EMAIL</th>
-                                <th>DATE</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {this.state.meetings.map(meeting =>
-                                <tr>
-                                    <td><Link to={`/show/${meeting._id}`}>{meeting.isbn}</Link></td>
-                                    <td>{meeting.firstName}</td>
-                                    <td>{meeting.lastName}</td>
-                                    <td>{meeting.email}</td>
-                                    <td>{meeting.date}</td>
-                                </tr>
-                            )}
-                            </tbody>
+            <Container text>
+                <Message>
 
-                        </table>
-                    </div>
-                </div>
-            </div>
+                    <Message.Header>
+                        Your Meetings
+                    </Message.Header>
+
+                    <Table celled>
+                        <Table.Header>
+                            <Table.Row>
+                                <Table.HeaderCell>ISBN</Table.HeaderCell>
+                                <Table.HeaderCell>FIRST NAME</Table.HeaderCell>
+                                <Table.HeaderCell>LAST NAME</Table.HeaderCell>
+                                <Table.HeaderCell>EMAIL</Table.HeaderCell>
+                                <Table.HeaderCell>DATE</Table.HeaderCell>
+                            </Table.Row>
+                        </Table.Header>
+                        <Table.Body>
+                            {this.state.meetings.map(meeting => (
+                                <Table.Row>
+                                    <Table.Cell><Link to={`/show/${meeting._id}`}>{meeting.isbn}</Link></Table.Cell>
+                                    <Table.Cell>{meeting.firstName}</Table.Cell>
+                                    <Table.Cell>{meeting.lastName}</Table.Cell>
+                                    <Table.Cell>{meeting.email}</Table.Cell>
+                                    <Table.Cell>{meeting.date}</Table.Cell>
+                                </Table.Row>
+                            ))}
+                        </Table.Body>
+                    </Table>
+                </Message>
+            </Container>
         );
     }
 }

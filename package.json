@@ -7,7 +7,6 @@
     "babel-cli": "^6.26.0",
     "bluebird": "^3.5.1",
     "body-parser": "^1.18.2",
-    "bulma": "^0.6.2",
     "express": "^4.16.3",
     "mongoose": "^5.0.13",
     "nodemon": "^1.17.3",
@@ -18,7 +17,9 @@
     "react-modal": "^3.3.2",
     "react-prop-types": "^0.4.0",
     "react-router-dom": "^4.2.2",
-    "react-scripts": "1.1.1"
+    "react-scripts": "1.1.1",
+    "semantic-ui-css": "^2.3.1",
+    "semantic-ui-react": "^0.79.1"
   },
   "scripts": {
     "dev": "rimraf dist && webpack --env.env=dev",
@@ -44,6 +45,7 @@
     "react-hot-loader": "^4.0.1",
     "rimraf": "^2.6.2",
     "sass-loader": "^6.0.7",
+    "semantic-ui-sass": "^2.2.11",
     "style-loader": "^0.20.3",
     "url-loader": "^1.0.1",
     "webpack": "^4.5.0",

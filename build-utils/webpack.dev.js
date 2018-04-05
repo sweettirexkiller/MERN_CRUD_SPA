@@ -22,7 +22,17 @@ const config = {
     module: {
         rules: [
             {
-                test: /\.sa?c?ss$/,
+                test: /\.css$/,
+                use: extractSass.extract({
+                    fallback: 'style-loader',
+                    //resolve-url-loader may be chained before sass-loader if necessary
+                    use: [{
+                        loader: "css-loader" // translates CSS into CommonJS
+                    }]
+                })
+            },
+            {
+                test: /\.s[ac]ss$/,
                 use: extractSass.extract({
                     fallback: 'style-loader',
                     //resolve-url-loader may be chained before sass-loader if necessary
@@ -33,7 +43,15 @@ const config = {
                             loader: "sass-loader" // compiles Sass to CSS
                         }]
                 })
-            }
+            },
+            {
+                test: /\.jpe?g$|\.gif$|\.png$|\.ttf$|\.eot$|\.svg$/,
+                use: 'file-loader?name=[name].[ext]?[hash]'
+            },
+            {
+                test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+                loader: 'url-loader?limit=10000&mimetype=application/fontwoff'
+            },
         ]
     },
     plugins: [
