@@ -22,5 +22,24 @@ router.route('/insert')
         });
     });
 
+router.route('/update')
+    .post(function (req, res) {
+        const doc = {
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            email: req.body.email,
+            date: req.body.date
+        };
+        console.log(doc);
+        Event.update({
+            _id: req.body._id,
+            doc,
+            function (err, result) {
+                if (err) res.send(err);
+                res.send('Event successfully updated!')
+            }
+        });
+    });
+
 
 module.exports = router;
