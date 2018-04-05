@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+
+import 'bootstrap';
 import '../styles/App.css';
 
 class App extends Component {

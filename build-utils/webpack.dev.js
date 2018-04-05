@@ -2,20 +2,17 @@ const commonPaths = require('./common-path');
 
 const webpack = require('webpack');
 
-const port = process.env.port || 3000;
-
 const config = {
-    mode: 'development',
     entry: {
         app: [
-            'react-hot-loader/patch',
             `${commonPaths.appEntry}/index.js`
         ]
     },
+    mode: 'development',
     output: {
-        filename: '[name].[hash].js'
+        path: commonPaths.appEntry,
+        filename: 'bundle.js'
     },
-    devtool: 'inline-source-map',
     module: {
         rules: [
             {
@@ -26,10 +23,16 @@ const config = {
                     },
                     {
                         loader: 'css-loader',
+                    },
+                    {
+                        loader: 'postcss-loader', // Run post css actions
                         options: {
-                            modules: true,
-                            camelCase: true,
-                            sourceMap: true
+                            plugins: function () { // post css plugins, can be exported to postcss.config.js
+                                return [
+                                    require('precss'),
+                                    require('autoprefixer')
+                                ];
+                            }
                         }
                     },
                     {
@@ -39,15 +42,7 @@ const config = {
             }
         ]
     },
-    plugins: [
-        new webpack.HotModuleReplacementPlugin()
-    ],
-    devServer: {
-        host: 'localhost',
-        port: port,
-        historyApiFallback: true,
-        hot: true
-    }
+    plugins: [],
 };
 
 module.exports = config;

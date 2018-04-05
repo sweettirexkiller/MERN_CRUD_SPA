@@ -1,0 +1,7 @@
+const app = require('../server/server');
+
+let port = 8080;
+
+app.listen(port, () => {
+    console.log('running at localhost: ' + port);
+});
