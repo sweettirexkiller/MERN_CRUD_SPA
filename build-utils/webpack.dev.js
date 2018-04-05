@@ -29,9 +29,10 @@ const config = {
                     //resolve-url-loader may be chained before sass-loader if necessary
                     use: [{
                         loader: "css-loader" // translates CSS into CommonJS
-                    }, {
-                        loader: "sass-loader" // compiles Sass to CSS
-                    }]
+                    },
+                        {
+                            loader: "sass-loader" // compiles Sass to CSS
+                        }]
                 })
             }
         ]
