@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import {Container, Message, Table} from 'semantic-ui-react';
+import {Container, Message, Table, Button, Icon} from 'semantic-ui-react';
 import axios from 'axios';
 
 
@@ -16,7 +16,7 @@ class App extends Component {
     }
 
     componentDidMount() {
-        axios.get('/api/book')
+        axios.get('/api/meeting')
             .then(res => {
                 this.setState({meetings: res.data});
                 console.log(this.state.meetings);
@@ -26,13 +26,20 @@ class App extends Component {
 
     render() {
         return (
-            <Container text>
+            <Container>
                 <Message>
 
                     <Message.Header>
                         Your Meetings
                     </Message.Header>
-
+                    <Link to='/create'>
+                        <Button animated>
+                            <Button.Content hidden>Add</Button.Content>
+                            <Button.Content visible>
+                                <Icon name='plus'/>
+                            </Button.Content>
+                        </Button>
+                    </Link>
                     <Table celled>
                         <Table.Header>
                             <Table.Row>
@@ -46,7 +53,7 @@ class App extends Component {
                         <Table.Body>
                             {this.state.meetings.map(meeting => (
                                 <Table.Row>
-                                    <Table.Cell><Link to={`/show/${meeting._id}`}>{meeting.isbn}</Link></Table.Cell>
+                                    <Table.Cell><Link to={`/show/${meeting._id}`}>{meeting._id}</Link></Table.Cell>
                                     <Table.Cell>{meeting.firstName}</Table.Cell>
                                     <Table.Cell>{meeting.lastName}</Table.Cell>
                                     <Table.Cell>{meeting.email}</Table.Cell>

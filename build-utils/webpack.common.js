@@ -34,7 +34,11 @@ const config = {
     plugins: [
         new HtmlWebpackPlugin({
             template: commonPaths.appEntry + '/views/index.html',
-            filename: 'index.ejs'
+            filename: 'index.ejs',
+            excludeChunks: [
+                'bundle.js',
+                'styles.css'
+            ]
         })
     ]
 };

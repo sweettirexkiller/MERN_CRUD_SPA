@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {BrowserRouter as Router, Route } from 'react-router-dom';
+import {HashRouter as Router, Route } from 'react-router-dom';
 
 import 'semantic-ui-css/semantic.min.css';
 import './styles/index.scss';
@@ -14,9 +14,9 @@ ReactDOM.render(
     <Router>
         <div>
             <Route exact path='/' component={App}/>
-            <Route path='/edit/:id' component={Edit}/>
+            {/*<Route path='/edit/:id' component={Edit}/>*/}
             <Route path='/create' component={Create}/>
-            <Route path='/show/:id' component={Show}/>
+            {/*<Route path='/show/:id' component={Show}/>*/}
         </div>
     </Router>
     , document.getElementById('root')
