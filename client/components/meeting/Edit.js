@@ -3,15 +3,17 @@ import {Link} from 'react-router-dom';
 import axios from 'axios';
 import {Container, Message, Button, Icon, Form, Grid} from 'semantic-ui-react';
 import DateTime from 'react-datetime';
+import moment from "moment";
 
 class Edit extends Component {
     constructor() {
         super();
         this.state = {
-            meeting: {}
+            meeting: {},
         };
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+        this.handleCalendarChange = this.onSubmit.bind(this);
     }
 
     componentDidMount() {
@@ -36,7 +38,11 @@ class Edit extends Component {
             .catch((result) => console.log(result));
     }
 
-    handleCalendarChange = date => this.setState({date});
+    handleCalendarChange(date) {
+        const meeting = this.state.meeting;
+        meeting.date = date;
+        this.setState({meeting});
+    }
 
 
     render() {
@@ -73,7 +79,8 @@ class Edit extends Component {
                                 <Form onSubmit={this.onSubmit}>
                                     <Form.Field>
                                         <label>First Name</label>
-                                        <input type="text" name="firstName" placeholder="First Name" value={firstName}
+                                        <input type="text" name="firstName" placeholder="First Name"
+                                               value={firstName}
                                                onChange={this.onChange}/>
                                     </Form.Field>
                                     <Form.Field>
@@ -88,7 +95,7 @@ class Edit extends Component {
                                     </Form.Field>
                                     <Form.Field>
                                         <label>Date</label>
-                                        <DateTime onChange={this.handleCalendarChange} defaultValue={new Date(date)}/>
+                                        <DateTime onChange={this.handleCalendarChange} value={ Date.parse(date)}/>
                                     </Form.Field>
                                     <Button type="submit">Submit</Button>
                                 </Form>
