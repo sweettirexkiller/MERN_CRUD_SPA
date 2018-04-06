@@ -25,9 +25,9 @@ class Edit extends Component {
     }
 
     onChange(e) {
-        const state = this.state;
-        state[e.target.name] = e.target.value;
-        this.setState(state);
+        const meeting = this.state.meeting;
+        meeting[e.target.name] = e.target.value;
+        this.setState({meeting});
     }
 
     onSubmit(e) {
@@ -95,7 +95,7 @@ class Edit extends Component {
                                     </Form.Field>
                                     <Form.Field>
                                         <label>Date</label>
-                                        <DateTime onChange={this.handleCalendarChange} value={ Date.parse(date)}/>
+                                        <DateTime onChange={this.handleCalendarChange} value={date}/>
                                     </Form.Field>
                                     <Button type="submit">Submit</Button>
                                 </Form>
