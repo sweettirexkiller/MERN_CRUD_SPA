@@ -38,41 +38,43 @@ class Create extends Component {
     render() {
         const {isbn, firstName, lastName, email, date} = this.state;
         return (
-            <Container>
+            <Container style={{ padding: '5em 0em' }}>
                 <Message>
-                    <Message.Header>
+                    <Message.Header style={{'text-align':'center'}}>
                         Add meeting
                     </Message.Header>
-                    <Link to='/'>
-                        <Button animated>
-                            <Button.Content hidden>All</Button.Content>
-                            <Button.Content visible>
-                                <Icon name='list'/>
-                            </Button.Content>
-                        </Button>
-                    </Link>
-                    <Form onSubmit={this.onSubmit}>
-                        <Form.Field>
-                            <label>First Name</label>
-                            <input type="text" name="firstName" placeholder="First Name" value={firstName}
-                                   onChange={this.onChange}/>
-                        </Form.Field>
-                        <Form.Field>
-                            <label>Last Name</label>
-                            <input type="text" name="lastName" placeholder="Last Name" value={lastName}
-                                   onChange={this.onChange}/>
-                        </Form.Field>
-                        <Form.Field>
-                            <label>Email</label>
-                            <input type="email" name="email" placeholder="Last Name" value={email}
-                                   onChange={this.onChange}/>
-                        </Form.Field>
-                        <Form.Field>
-                            <label>Date</label>
-                            <DateTime onChange={this.handleCalendarChange}/>
-                        </Form.Field>
-                        <Button type="submit">Submit</Button>
-                    </Form>
+                    <Message.Content>
+                        <Link to='/'>
+                            <Button animated>
+                                <Button.Content hidden>All</Button.Content>
+                                <Button.Content visible>
+                                    <Icon name='list'/>
+                                </Button.Content>
+                            </Button>
+                        </Link>
+                        <Form onSubmit={this.onSubmit}>
+                            <Form.Field>
+                                <label>First Name</label>
+                                <input type="text" name="firstName" placeholder="First Name" value={firstName}
+                                       onChange={this.onChange}/>
+                            </Form.Field>
+                            <Form.Field>
+                                <label>Last Name</label>
+                                <input type="text" name="lastName" placeholder="Last Name" value={lastName}
+                                       onChange={this.onChange}/>
+                            </Form.Field>
+                            <Form.Field>
+                                <label>Email</label>
+                                <input type="email" name="email" placeholder="Last Name" value={email}
+                                       onChange={this.onChange}/>
+                            </Form.Field>
+                            <Form.Field>
+                                <label>Date</label>
+                                <DateTime onChange={this.handleCalendarChange}/>
+                            </Form.Field>
+                            <Button type="submit">Submit</Button>
+                        </Form>
+                    </Message.Content>
                 </Message>
             </Container>
         );

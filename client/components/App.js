@@ -26,42 +26,43 @@ class App extends Component {
 
     render() {
         return (
-            <Container>
+            <Container style={{padding: '5em 0em'}}>
                 <Message>
-
-                    <Message.Header>
+                    <Message.Header style={{'text-align': 'center'}}>
                         Your Meetings
                     </Message.Header>
-                    <Link to='/create'>
-                        <Button animated>
-                            <Button.Content hidden>Add</Button.Content>
-                            <Button.Content visible>
-                                <Icon name='plus'/>
-                            </Button.Content>
-                        </Button>
-                    </Link>
-                    <Table celled>
-                        <Table.Header>
-                            <Table.Row>
-                                <Table.HeaderCell>ISBN</Table.HeaderCell>
-                                <Table.HeaderCell>FIRST NAME</Table.HeaderCell>
-                                <Table.HeaderCell>LAST NAME</Table.HeaderCell>
-                                <Table.HeaderCell>EMAIL</Table.HeaderCell>
-                                <Table.HeaderCell>DATE</Table.HeaderCell>
-                            </Table.Row>
-                        </Table.Header>
-                        <Table.Body>
-                            {this.state.meetings.map(meeting => (
+                    <Message.Content>
+                        <Link to='/create'>
+                            <Button animated>
+                                <Button.Content hidden>Add</Button.Content>
+                                <Button.Content visible>
+                                    <Icon name='plus'/>
+                                </Button.Content>
+                            </Button>
+                        </Link>
+                        <Table celled>
+                            <Table.Header>
                                 <Table.Row>
-                                    <Table.Cell><Link to={`/show/${meeting._id}`}>{meeting._id}</Link></Table.Cell>
-                                    <Table.Cell>{meeting.firstName}</Table.Cell>
-                                    <Table.Cell>{meeting.lastName}</Table.Cell>
-                                    <Table.Cell>{meeting.email}</Table.Cell>
-                                    <Table.Cell>{meeting.date}</Table.Cell>
+                                    <Table.HeaderCell>ISBN</Table.HeaderCell>
+                                    <Table.HeaderCell>FIRST NAME</Table.HeaderCell>
+                                    <Table.HeaderCell>LAST NAME</Table.HeaderCell>
+                                    <Table.HeaderCell>EMAIL</Table.HeaderCell>
+                                    <Table.HeaderCell>DATE</Table.HeaderCell>
                                 </Table.Row>
-                            ))}
-                        </Table.Body>
-                    </Table>
+                            </Table.Header>
+                            <Table.Body>
+                                {this.state.meetings.map(meeting => (
+                                    <Table.Row>
+                                        <Table.Cell><Link to={`/show/${meeting._id}`}>{meeting._id}</Link></Table.Cell>
+                                        <Table.Cell>{meeting.firstName}</Table.Cell>
+                                        <Table.Cell>{meeting.lastName}</Table.Cell>
+                                        <Table.Cell>{meeting.email}</Table.Cell>
+                                        <Table.Cell>{meeting.date}</Table.Cell>
+                                    </Table.Row>
+                                ))}
+                            </Table.Body>
+                        </Table>
+                    </Message.Content>
                 </Message>
             </Container>
         );
