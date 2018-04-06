@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import {Container, Message, Table, Button, Icon} from 'semantic-ui-react';
+import {Container, Message, Table, Button, Icon, Grid} from 'semantic-ui-react';
 import axios from 'axios';
 
 
@@ -26,9 +26,9 @@ class App extends Component {
 
     render() {
         return (
-            <Container style={{ padding: '5em 0em' }}>
+            <Container style={{padding: '5em 0em'}}>
                 <Message>
-                    <Message.Header  style={{textAlign:'center'}}>
+                    <Message.Header style={{textAlign: 'center'}}>
                         Your Meetings
                     </Message.Header>
                     <Message.Content>
@@ -40,7 +40,7 @@ class App extends Component {
                                 </Button.Content>
                             </Button>
                         </Link>
-                        <Table celled>
+                        <Table>
                             <Table.Header>
                                 <Table.Row>
                                     <Table.HeaderCell>ISBN</Table.HeaderCell>
@@ -54,7 +54,8 @@ class App extends Component {
                             <Table.Body>
                                 {this.state.meetings.map(meeting => (
                                     <Table.Row>
-                                        <Table.Cell><Link to={`/show/${meeting._id}`}>{meeting._id}</Link></Table.Cell>
+                                        <Table.Cell><Link
+                                            to={`/show/${meeting._id}`}>{meeting._id}</Link></Table.Cell>
                                         <Table.Cell>{meeting.firstName}</Table.Cell>
                                         <Table.Cell>{meeting.lastName}</Table.Cell>
                                         <Table.Cell>{meeting.email}</Table.Cell>
