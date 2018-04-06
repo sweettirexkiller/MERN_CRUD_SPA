@@ -26,9 +26,9 @@ class App extends Component {
 
     render() {
         return (
-            <Container style={{padding: '5em 0em'}}>
+            <Container style={{ padding: '5em 0em' }}>
                 <Message>
-                    <Message.Header style={{'text-align': 'center'}}>
+                    <Message.Header  style={{textAlign:'center'}}>
                         Your Meetings
                     </Message.Header>
                     <Message.Content>
@@ -48,6 +48,7 @@ class App extends Component {
                                     <Table.HeaderCell>LAST NAME</Table.HeaderCell>
                                     <Table.HeaderCell>EMAIL</Table.HeaderCell>
                                     <Table.HeaderCell>DATE</Table.HeaderCell>
+                                    <Table.HeaderCell>ACTIONS</Table.HeaderCell>
                                 </Table.Row>
                             </Table.Header>
                             <Table.Body>
@@ -58,6 +59,24 @@ class App extends Component {
                                         <Table.Cell>{meeting.lastName}</Table.Cell>
                                         <Table.Cell>{meeting.email}</Table.Cell>
                                         <Table.Cell>{meeting.date}</Table.Cell>
+                                        <Table.Cell>
+                                            <Link to={`/show/${meeting._id}`}>
+                                                <Button animated>
+                                                    <Button.Content hidden>Show</Button.Content>
+                                                    <Button.Content visible>
+                                                        <Icon name='info circle'/>
+                                                    </Button.Content>
+                                                </Button>
+                                            </Link>
+                                            <Link to={`/edit/${meeting._id}`}>
+                                                <Button animated floated='left' color='green'>
+                                                    <Button.Content hidden>Edit</Button.Content>
+                                                    <Button.Content visible>
+                                                        <Icon name='settings'/>
+                                                    </Button.Content>
+                                                </Button>
+                                            </Link>
+                                        </Table.Cell>
                                     </Table.Row>
                                 ))}
                             </Table.Body>

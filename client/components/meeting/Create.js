@@ -40,7 +40,7 @@ class Create extends Component {
         return (
             <Container style={{ padding: '5em 0em' }}>
                 <Message>
-                    <Message.Header style={{'text-align':'center'}}>
+                    <Message.Header style={{textAlign:'center '}}>
                         Add meeting
                     </Message.Header>
                     <Message.Content>
