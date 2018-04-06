@@ -33,7 +33,7 @@ class Create extends Component {
             .catch((result) => console.log(result));
     }
 
-    handleCalendarChange = date => this.setState({ date });
+    handleCalendarChange = date => this.setState({date});
 
     render() {
         const {isbn, firstName, lastName, email, date} = this.state;
@@ -64,9 +64,13 @@ class Create extends Component {
                         </Form.Field>
                         <Form.Field>
                             <label>Email</label>
-                            <input type="email" name="email" placeholder="Last Name" value={email} onChange={this.onChange}/>
+                            <input type="email" name="email" placeholder="Last Name" value={email}
+                                   onChange={this.onChange}/>
                         </Form.Field>
-                        <DateTime onChange={this.handleCalendarChange}/>
+                        <Form.Field>
+                            <label>Date</label>
+                            <DateTime onChange={this.handleCalendarChange}/>
+                        </Form.Field>
                         <Button type="submit">Submit</Button>
                     </Form>
                 </Message>
