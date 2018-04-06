@@ -2,9 +2,8 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import {Link} from 'react-router-dom';
 import {Container, Message, Button, Icon, Form} from 'semantic-ui-react';
-import Calendar from 'react-calendar';
+import DateTime from 'react-datetime';
 
-import 'react-datepicker/dist/react-datepicker.css';
 
 class Create extends Component {
     constructor() {
@@ -67,7 +66,7 @@ class Create extends Component {
                             <label>Email</label>
                             <input type="email" name="email" placeholder="Last Name" value={email} onChange={this.onChange}/>
                         </Form.Field>
-                        <Calendar onChange={this.handleCalendarChange} value={date}/>
+                        <DateTime onChange={this.handleCalendarChange}/>
                         <Button type="submit">Submit</Button>
                     </Form>
                 </Message>
