@@ -32,6 +32,12 @@ exports.store = function (req, res, next) {
 
 
 exports.update = function (req, res, next) {
+    const errors = validationResult(req);
+
+    if(!errors.isEmpty()){
+        return res.status(422).json({errors: errors.mapped()})
+    }
+
     Meeting.findByIdAndUpdate(req.params.id, req.body, function (err, meeting) {
         if (err) return next(err);
         res.json(meeting);
