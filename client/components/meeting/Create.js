@@ -23,7 +23,14 @@ class Create extends Component {
     onChange(e) {
         const state = this.state;
         state[e.target.name] = e.target.value;
-        this.setState(state);
+
+        if(!!this.state.errors[e.target.name]){
+            let errors = Object.assign({}, this.state.errors);
+            delete errors[e.target.name];
+            this.setState({errors, state});
+        }else{
+            this.setState({state});
+        }
     }
 
     onSubmit(e) {
@@ -38,11 +45,9 @@ class Create extends Component {
 
     render() {
         const {firstName, lastName, email,errors} = this.state;
+
         return (
             <Container style={{padding: '5em 0em'}}>
-                {/*<Message negative>*/}
-                    {/*{Object.keys(errors).forEach((key) => (<p> {errors[key].msg} </p>))}*/}
-                {/*</Message>*/}
                 <Message>
                     <Message.Header style={{textAlign: 'center '}}>
                         Add meeting
@@ -57,24 +62,28 @@ class Create extends Component {
                             </Button>
                         </Link>
                         <Form onSubmit={this.onSubmit}>
-                            <Form.Field>
+                            <Form.Field error={errors.firstName ? true : false}>
                                 <label>First Name</label>
                                 <input type="text" name="firstName" placeholder="First Name" value={firstName}
                                        onChange={this.onChange}/>
+                                {errors.firstName ? <Message negative floating content={errors.firstName.msg}></Message> : ''}
                             </Form.Field>
-                            <Form.Field>
+                            <Form.Field error={errors.lastName ? true : false}>
                                 <label>Last Name</label>
                                 <input type="text" name="lastName" placeholder="Last Name" value={lastName}
                                        onChange={this.onChange}/>
+                                {errors.lastName ? <Message negative floating content={errors.lastName.msg}></Message> : ''}
                             </Form.Field>
-                            <Form.Field>
+                            <Form.Field error={errors.email ? true : false}>
                                 <label>Email</label>
                                 <input type="email" name="email" placeholder="Last Name" value={email}
                                        onChange={this.onChange}/>
+                                {errors.email ? <Message negative floating content={errors.email.msg}></Message> : ''}
                             </Form.Field>
-                            <Form.Field>
+                            <Form.Field error={errors.date ? true : false}>
                                 <label>Date</label>
                                 <DateTime onChange={this.handleCalendarChange}/>
+                                {errors.date ? <Message negative floating content={errors.date.msg}></Message> : ''}
                             </Form.Field>
                             <Button type="submit">Submit</Button>
                         </Form>
