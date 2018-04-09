@@ -1,4 +1,5 @@
 var Meeting = require('../../models/Meeting');
+var {validationResult} = require('express-validator/check');
 
 exports.index = function (req, res, next) {
     Meeting.find(function (err, meetings) {
@@ -17,6 +18,12 @@ exports.show = function (req, res, next) {
 
 
 exports.store = function (req, res, next) {
+    const errors = validationResult(req);
+
+    if(!errors.isEmpty()){
+        return res.status(422).json({errors: errors.mapped()})
+    }
+
     Meeting.create(req.body, function (err, meeting) {
         if (err) return next(err);
         res.json(meeting);

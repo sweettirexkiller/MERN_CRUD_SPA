@@ -14,6 +14,7 @@ class Create extends Component {
             lastName: '',
             email: '',
             date: new Date(),
+            errors: {}
         };
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
@@ -30,17 +31,20 @@ class Create extends Component {
         const {isbn, firstName, lastName, email, date} = this.state;
         axios.post('/api/meeting', {isbn, firstName, lastName, email, date})
             .then((result) => this.props.history.push('/'))
-            .catch((result) => console.log(result));
+            .catch((error) => this.setState({errors: error.response.data.errors}));
     }
 
     handleCalendarChange = date => this.setState({date});
 
     render() {
-        const {isbn, firstName, lastName, email, date} = this.state;
+        const {firstName, lastName, email,errors} = this.state;
         return (
-            <Container style={{ padding: '5em 0em' }}>
+            <Container style={{padding: '5em 0em'}}>
+                {/*<Message negative>*/}
+                    {/*{Object.keys(errors).forEach((key) => (<p> {errors[key].msg} </p>))}*/}
+                {/*</Message>*/}
                 <Message>
-                    <Message.Header style={{textAlign:'center '}}>
+                    <Message.Header style={{textAlign: 'center '}}>
                         Add meeting
                     </Message.Header>
                     <Message.Content>
