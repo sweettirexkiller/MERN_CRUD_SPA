@@ -1,4 +1,5 @@
 var express = require('express');
+var config = require('../config');
 
 var router = require('./routes/routes.js');
 var meeting = require('./routes/api/meeting.js');
@@ -16,7 +17,7 @@ app.use(express.static(commonPath.outputPath));
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: false}));
 
-mongoose.connect('mongodb://localhost/MyApp', {promiseLibrary: require('bluebird')})
+mongoose.connect(config.DB_CLIENT, {promiseLibrary: require('bluebird')})
     .then(() => console.log('connection succesful'))
     .catch((err) => console.error(err));
 
