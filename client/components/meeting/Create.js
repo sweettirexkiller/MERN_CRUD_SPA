@@ -3,7 +3,11 @@ import axios from 'axios';
 import {Link} from 'react-router-dom';
 import {Container, Message, Button, Icon, Form} from 'semantic-ui-react';
 import DateTime from 'react-datetime';
+import {connect} from 'react-redux';
 
+@connect((state)=>{
+    return {}
+})
 
 class Create extends Component {
     constructor() {

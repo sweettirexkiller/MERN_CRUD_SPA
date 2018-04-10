@@ -15,14 +15,7 @@ class App extends Component {
 
     componentWillMount() {
         this.props.dispatch(fetchMeetings())
-
-        // axios.get('/api/meeting')
-        //     .then(res => {
-        //         this.setState({meetings: res.data});
-        //         console.log(this.state.meetings);
-        //     });
     }
-
 
     render() {
         console.log(this.props);

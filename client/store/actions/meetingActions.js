@@ -11,3 +11,13 @@ export function fetchMeetings(){
             });
     }
 }
+
+export function addMeeting(meeting){
+    return function(dispatch){
+        axios.post('/api/meeting', meeting)
+            .then((res) => {
+                dispatch({type: 'MEETING_ADDED', payload: res.data})
+            })
+            .catch((err) => this.setState({errors: err.response.data.errors}));
+    }
+}
