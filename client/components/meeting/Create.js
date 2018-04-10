@@ -4,59 +4,68 @@ import {Link} from 'react-router-dom';
 import {Container, Message, Button, Icon, Form} from 'semantic-ui-react';
 import DateTime from 'react-datetime';
 import {connect} from 'react-redux';
+import {addMeeting} from "../../store/actions/meetingActions";
 
 @connect((state)=>{
-    return {}
+    return {
+        meetings: state.meeting.meetings,
+        errors: state.meeting.errors,
+        meetingAdded: state.meeting.meetingAdded
+    }
 })
 
 class Create extends Component {
     constructor() {
         super();
+        //dumb state
         this.state = {
-            isbn: '',
-            firstName: '',
-            lastName: '',
-            email: '',
-            date: '',
-            errors: {}
+           meeting: {
+               isbn: '',
+               firstName: '',
+               lastName: '',
+               email: '',
+               date: ''
+           },
         };
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
     }
 
     onChange(e) {
-        const state = this.state;
-        state[e.target.name] = e.target.value;
+        const meeting = this.state.meeting;
+        meeting[e.target.name] = e.target.value;
+        this.setState({meeting});
 
-        if(!!this.state.errors[e.target.name]){
-            let errors = Object.assign({}, this.state.errors);
-            delete errors[e.target.name];
-            this.setState({errors, state});
-        }else{
-            this.setState({state});
+        if(!!this.props.errors[e.target.name]){
+            delete this.props.errors[e.target.name];
         }
     }
+
 
     onSubmit(e) {
         e.preventDefault();
-        const {isbn, firstName, lastName, email, date} = this.state;
-        axios.post('/api/meeting', {isbn, firstName, lastName, email, date})
-            .then((result) => this.props.history.push('/'))
-            .catch((error) => this.setState({errors: error.response.data.errors}));
+        this.props.dispatch(addMeeting(this.state.meeting));
     }
 
     handleCalendarChange = (date) => {
-        this.setState({date});
-        if(!!this.state.errors['date']){
-            let errors = Object.assign({}, this.state.errors);
-            delete errors['date'];
-            this.setState({errors});
+        let meeting = Object.assign({}, this.state.meeting);
+        meeting.date = date;
+        this.setState({meeting});
+
+        if(!!this.props.errors['date']){
+            delete this.state.errors['date'];
         }
     };
 
-    render() {
-        const {firstName, lastName, email,errors} = this.state;
+    componentWillUpdate(nextProps) {
+        if (!!nextProps.meetingAdded) {
+            this.props.history.push('/');
+        }
+    }
 
+    render() {
+        const {firstName, lastName, email} = this.state.meeting;
+        const {errors} = this.props;
         return (
             <Container style={{padding: '5em 0em'}}>
                 <Message>
