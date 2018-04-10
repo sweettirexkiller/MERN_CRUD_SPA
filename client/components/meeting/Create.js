@@ -9,9 +9,9 @@ import moment from "moment";
 
 @connect((state)=>{
     return {
-        meetings: state.meeting.meetings,
-        fetching: state.meeting.fetching,
-        fetched: state.meeting.fetched
+        added: state.meeting.added,
+        adding: state.meeting.adding,
+        errors: state.meeting.errors
     }
 })
 
@@ -58,8 +58,8 @@ class Create extends Component {
         }
     };
 
-    componentWillUpdate(nextProps) {
-        if (!!nextProps.meetingAdded) {
+    componentWillReceiveProps(nextProps) {
+        if (!!nextProps.added) {
             this.props.history.push('/');
         }
     }

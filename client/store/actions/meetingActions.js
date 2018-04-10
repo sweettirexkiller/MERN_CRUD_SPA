@@ -18,7 +18,7 @@ export function addMeeting(meeting){
         dispatch({type: 'ADD_MEETING_STARTED'});
         axios.post('/api/meeting', meeting)
             .then((res) => {
-                dispatch({type: 'ADD_MEETING_FULFILLED'})
+                dispatch({type: 'ADD_MEETING_FULFILLED', payload: res.data})
             })
             .catch((err) => {
                 dispatch({type: 'ADD_MEETING_ERROR', payload: err.response.data.errors})

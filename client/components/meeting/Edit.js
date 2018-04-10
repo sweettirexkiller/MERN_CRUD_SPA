@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
-import {Container, Message, Button, Icon, Form, Grid} from 'semantic-ui-react';
+import {Container, Message, Button, Icon, Form, Grid, Segment, Dimmer, Loader} from 'semantic-ui-react';
 import DateTime from 'react-datetime';
 import moment from "moment";
 import {connect} from 'react-redux'
@@ -59,7 +59,7 @@ class Edit extends Component {
         }
     };
 
-    componentWillUpdate(nextProps) {
+    componentWillReceiveProps(nextProps) {
         if (!!nextProps.updated) {
             this.props.history.push(`/show/${this.state.meeting._id}`)
         }
@@ -71,7 +71,7 @@ class Edit extends Component {
 
 
     render() {
-        const {meeting, fetching} = this.props;
+        const {meeting, fetching, errors} = this.props;
 
         if (fetching && !meeting.length) {
             return (
@@ -87,7 +87,7 @@ class Edit extends Component {
             )
         }
 
-        const {firstName, lastName, email, date, errors} = this.state.meeting;
+        const {firstName, lastName, email, date} = this.state.meeting;
 
         return (
             <Container style={{padding: '5em 0em'}}>
