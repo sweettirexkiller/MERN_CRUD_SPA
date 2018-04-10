@@ -103,7 +103,7 @@ class Create extends Component {
                             </Form.Field>
                             <Form.Field error={!!errors.date}>
                                 <label>Date</label>
-                                <DateTime onChange={this.handleCalendarChange} inputProps={{value: moment(date).isValid() ? moment(date).format("YYYY-MM-DD HH:mm") : date, placeholder: 'Date'}}/>
+                                <DateTime onChange={this.handleCalendarChange} closeOnSelect={true} inputProps={{value: moment(date).isValid() ? moment(date).format("YYYY-MM-DD HH:mm") : date, placeholder: 'Date'}}/>
                                 {errors.date ? <Message negative floating content={errors.date.msg}></Message> : ''}
                             </Form.Field>
                             <Button type="submit">Submit</Button>

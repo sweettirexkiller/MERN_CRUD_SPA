@@ -30,7 +30,7 @@ class Edit extends Component {
     }
 
     componentDidMount() {
-        this.props.dispatch(fetchMeeting(this.props.match.params._id));
+        this.props.dispatch(fetchMeeting(this.props.match.params.id));
     }
 
     onChange(e) {
@@ -45,17 +45,17 @@ class Edit extends Component {
 
     onSubmit(e) {
         e.preventDefault();
+        e.stopPropagation();
         this.props.dispatch(updateMeeting(this.state.meeting))
     }
 
     handleCalendarChange = (date) => {
-
         let meeting = Object.assign({}, this.state.meeting);
         meeting.date = date.format("YYYY-MM-DD HH:mm");
         this.setState({meeting});
 
-        if (!!this.props.errors['date']) {
-            delete this.props.errors['date'];
+        if(!!this.props.errors['date']){
+            delete this.state.errors['date'];
         }
     };
 
@@ -64,7 +64,7 @@ class Edit extends Component {
             this.props.history.push(`/show/${this.state.meeting._id}`)
         }
         if (!!nextProps.meeting) {
-            const meeting = this.props.meeting;
+            const meeting = nextProps.meeting;
             this.setState({meeting});
         }
     }
@@ -145,12 +145,10 @@ class Edit extends Component {
                                     </Form.Field>
                                     <Form.Field error={!!errors.date}>
                                         <label>Date</label>
-                                        <DateTime onChange={this.handleCalendarChange} inputProps={{
-                                            value: moment(date).isValid() ? moment(date).format("YYYY-MM-DD HH:mm") : date,
-                                            placeholder: 'Date'
-                                        }}/>
-                                        {errors.date ?
-                                            <Message negative floating content={errors.date.msg}></Message> : ''}
+                                        <input type="date"/>
+                                        <input type="time"/>
+                                        {/*<DateTime onChange={this.handleCalendarChange} inputProps={{value: moment(date).isValid() ? moment(date).format("YYYY-MM-DD HH:mm") : date, placeholder: 'Date'}}/>*/}
+                                        {/*{errors.date ? <Message negative floating content={errors.date.msg}></Message> : ''}*/}
                                     </Form.Field>
                                     <Button type="submit">Submit</Button>
                                 </Form>
