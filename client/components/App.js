@@ -7,7 +7,7 @@ import {fetchMeetings} from "../store/actions/meetingActions";
 import '../styles/App.scss';
 import moment from "moment";
 
-@connect((store)=>{
+@connect((store) => {
     return {
         meetings: store.meeting.meetings
     }
@@ -19,7 +19,6 @@ class App extends Component {
     }
 
     render() {
-        console.log(this.props);
         return (
             <Container style={{padding: '5em 0em'}}>
                 <Message>

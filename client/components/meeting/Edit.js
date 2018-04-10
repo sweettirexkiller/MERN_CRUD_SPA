@@ -5,11 +5,13 @@ import {Container, Message, Button, Icon, Form, Grid} from 'semantic-ui-react';
 import DateTime from 'react-datetime';
 import moment from "moment";
 import {connect} from 'react-redux'
+import {fetchMeeting, updateMeeting, fetchMeetings} from "../../store/actions/meetingActions";
 
 
 @connect((state)=>{
     return {
-        meetings: state.meeting.meetings
+        meeting: state.meeting.meeting,
+        meetingUpdated: state.meeting.meetingUpdated
     }
 })
 class Edit extends Component {
@@ -17,40 +19,30 @@ class Edit extends Component {
         super();
         this.state = {
             meeting: {},
-            errors:{}
         };
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.handleCalendarChange = this.onSubmit.bind(this);
     }
 
-    componentDidMount() {
-        console.log(this.props.meetings);
-        axios.get(`/api/meeting/${this.props.match.params.id}`)
-            .then(res => {
-                this.setState({meeting: res.data});
-            })
+    componentWillMount() {
+        this.props.dispatch(fetchMeetings());
     }
 
     onChange(e) {
         const meeting = this.state.meeting;
         meeting[e.target.name] = e.target.value;
+        this.setState({meeting});
 
-        if(!!this.state.errors[e.target.name]){
-            let errors = Object.assign({}, this.state.errors);
+        if(!!this.props.errors[e.target.name]){
+            let errors = Object.assign({}, this.props.errors);
             delete errors[e.target.name];
-            this.setState({errors, meeting});
-        }else{
-            this.setState({meeting});
         }
     }
 
     onSubmit(e) {
         e.preventDefault();
-        const {isbn, firstName, lastName, email, date} = this.state.meeting;
-        axios.put(`/api/meeting/${this.state.meeting._id}`, {isbn, firstName, lastName, email, date})
-            .then((result) => this.props.history.push(`/show/${this.state.meeting._id}`))
-            .catch((error) => this.setState({errors: error.response.data.errors}));
+        this.props.dispatch(updateMeeting(this.state.meeting))
     }
 
     handleCalendarChange = (date) => {
@@ -62,15 +54,28 @@ class Edit extends Component {
         if(!!this.state.errors['date']){
             let errors = Object.assign({}, this.state.errors);
             delete errors['date'];
-            this.setState({errors});
         }
     };
 
+    componentWillUpdate(nextProps) {
+        console.log(nextProps);
+        if (!!nextProps.meetingUpdated) {
+            this.props.history.push(`/show/${this.state.meeting._id}`)
+        }
+        if (!!nextProps.meeting) {
+            const meeting = this.props.meeting;
+            this.setState({meeting});
+        }
+    }
+
 
     render() {
-        const {firstName, lastName, email, date} = this.state.meeting;
-        const {errors} = this.state;
+        console.log(this.props);
+        const {firstName, lastName, email, date, errors} = this.props.meeting;
 
+        if (isFetching && !movies.length) {
+            return <p>Loading...</p>;
+        }
         return (
             <Container style={{padding: '5em 0em'}}>
                 <Message>

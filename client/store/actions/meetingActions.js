@@ -23,3 +23,28 @@ export function addMeeting(meeting){
             });
     }
 }
+
+export function fetchMeeting(id){
+    return function(dispatch){
+        axios.get(`/api/meeting/${id}`)
+            .then(res => {
+                dispatch({type: 'MEETING_FETCHED', payload: res.data})
+            })
+            .catch(err => {
+                dispatch({type: 'MEETING_FETCHED_ERROR', payload: err})
+            });
+    }
+}
+export function updateMeeting(meeting){
+    return function(dispatch){
+        axios.put(`/api/meeting/${this.state.meeting._id}`, meeting)
+            .then((res) =>  {
+                dispatch({type: 'MEETING_UPDATE_COMPLETE', payload: true})
+            })
+            .catch((err) => {
+                dispatch({type: 'MEETING_UPDATE_ERROR', payload: err})
+            });
+
+
+    }
+}
