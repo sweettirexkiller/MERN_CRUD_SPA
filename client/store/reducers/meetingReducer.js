@@ -50,10 +50,10 @@ export default function reducer(state = {
         case 'UPDATE_MEETING_STARTED': {
             return {...state, updating: true}
         }
-        case 'MEETING_UPDATE_COMPLETE': {
+        case 'UPDATE_MEETING_FULFILLED': {
             return {...state, meeting: action.payload, updating: false, updated: true}
         }
-        case 'MEETING_UPDATE_ERROR': {
+        case 'UPDATE_MEETING_ERROR': {
             return {...state, errors: action.payload, updating: false, updated: false}
         }
 

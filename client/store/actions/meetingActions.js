@@ -44,7 +44,7 @@ export function updateMeeting(meeting){
 
         axios.put(`/api/meeting/${meeting._id}`, meeting)
             .then((res) =>  {
-                dispatch({type: 'UPDATE_MEETING_FULFILLED'})
+                dispatch({type: 'UPDATE_MEETING_FULFILLED', payload: res.data})
             })
             .catch((err) => {
                 dispatch({type: 'UPDATE_MEETING_ERROR', payload: err})

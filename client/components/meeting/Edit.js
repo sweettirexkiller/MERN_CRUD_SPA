@@ -26,7 +26,7 @@ class Edit extends Component {
         };
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
-        this.handleCalendarChange = this.onSubmit.bind(this);
+        this.handleCalendarChange = this.handleCalendarChange.bind(this);
     }
 
     componentDidMount() {
@@ -45,7 +45,6 @@ class Edit extends Component {
 
     onSubmit(e) {
         e.preventDefault();
-        e.stopPropagation();
         this.props.dispatch(updateMeeting(this.state.meeting))
     }
 
@@ -60,6 +59,7 @@ class Edit extends Component {
     };
 
     componentWillReceiveProps(nextProps) {
+        console.log(nextProps);
         if (!!nextProps.updated) {
             this.props.history.push(`/show/${this.state.meeting._id}`)
         }
@@ -145,10 +145,8 @@ class Edit extends Component {
                                     </Form.Field>
                                     <Form.Field error={!!errors.date}>
                                         <label>Date</label>
-                                        <input type="date"/>
-                                        <input type="time"/>
-                                        {/*<DateTime onChange={this.handleCalendarChange} inputProps={{value: moment(date).isValid() ? moment(date).format("YYYY-MM-DD HH:mm") : date, placeholder: 'Date'}}/>*/}
-                                        {/*{errors.date ? <Message negative floating content={errors.date.msg}></Message> : ''}*/}
+                                        <DateTime onChange={this.handleCalendarChange} inputProps={{value: moment(date).isValid() ? moment(date).format("YYYY-MM-DD HH:mm") : date, placeholder: 'Date'}}/>
+                                        {errors.date ? <Message negative floating content={errors.date.msg}></Message> : ''}
                                     </Form.Field>
                                     <Button type="submit">Submit</Button>
                                 </Form>
