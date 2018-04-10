@@ -4,7 +4,14 @@ import axios from 'axios';
 import {Container, Message, Button, Icon, Form, Grid} from 'semantic-ui-react';
 import DateTime from 'react-datetime';
 import moment from "moment";
+import {connect} from 'react-redux'
 
+
+@connect((state)=>{
+    return {
+        meetings: state.meeting.meetings
+    }
+})
 class Edit extends Component {
     constructor() {
         super();
@@ -18,10 +25,10 @@ class Edit extends Component {
     }
 
     componentDidMount() {
+        console.log(this.props.meetings);
         axios.get(`/api/meeting/${this.props.match.params.id}`)
             .then(res => {
                 this.setState({meeting: res.data});
-                console.log(this.state.meeting);
             })
     }
 
@@ -47,9 +54,11 @@ class Edit extends Component {
     }
 
     handleCalendarChange = (date) => {
-        const meeting = this.state.meeting;
-        meeting.date = date;
+
+        let meeting = Object.assign({}, this.state.meeting);
+        meeting.date = date.format("YYYY-MM-DD HH:mm");
         this.setState({meeting});
+
         if(!!this.state.errors['date']){
             let errors = Object.assign({}, this.state.errors);
             delete errors['date'];
@@ -115,7 +124,7 @@ class Edit extends Component {
                                     </Form.Field>
                                     <Form.Field error={!!errors.date}>
                                         <label>Date</label>
-                                        <DateTime onChange={this.handleCalendarChange} value={date}/>
+                                        <DateTime onChange={this.handleCalendarChange} inputProps={{value: moment(date).isValid() ? moment(date).format("YYYY-MM-DD HH:mm") : date, placeholder: 'Date'}}/>
                                         {errors.date ? <Message negative floating content={errors.date.msg}></Message> : ''}
                                     </Form.Field>
                                     <Button type="submit">Submit</Button>
