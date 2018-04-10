@@ -7,6 +7,8 @@ export default function reducer(state = {
     added: false,
     updating: false,
     updated: false,
+    deleting: false,
+    deleted: false,
     errors: {},
 }, action) {
     switch (action.type) {
@@ -55,6 +57,17 @@ export default function reducer(state = {
         }
         case 'UPDATE_MEETING_ERROR': {
             return {...state, errors: action.payload, updating: false, updated: false}
+        }
+
+        /*DESTROY*/
+        case 'DELETE_MEETING_STARTED': {
+            return {...state, deleting: true}
+        }
+        case 'DELETE_MEETING_FULFILLED': {
+            return {...state, meeting: action.payload, deleting: false, deleted: true}
+        }
+        case 'DELETE_MEETING_ERROR': {
+            return {...state, errors: action.payload, deleting: false, deleted: false}
         }
 
         default: {

@@ -53,3 +53,18 @@ export function updateMeeting(meeting){
 
     }
 }
+
+export function deleteMeeting(id){
+    return function(dispatch){
+        dispatch({type: 'DELETE_MEETING_STARTED'});
+        axios.delete(`/api/meeting/${id}`)
+            .then((res) => {
+                dispatch({type: 'DELETE_MEETING_FULFILLED', payload: res.data})
+            })
+            .catch((err) => {
+                dispatch({type: 'DELETE_MEETING_ERROR', payload: err})
+            });
+
+
+    }
+}

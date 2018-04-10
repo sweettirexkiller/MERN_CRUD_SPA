@@ -59,7 +59,6 @@ class Edit extends Component {
     };
 
     componentWillReceiveProps(nextProps) {
-        console.log(nextProps);
         if (!!nextProps.updated) {
             this.props.history.push(`/show/${this.state.meeting._id}`)
         }

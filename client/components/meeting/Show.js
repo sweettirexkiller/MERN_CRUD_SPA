@@ -1,9 +1,21 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
-import {Container, Message, Button, Icon, List, Grid} from 'semantic-ui-react';
+import {Container, Message, Button, Icon, List, Grid, Segment, Dimmer, Loader} from 'semantic-ui-react';
 import moment from "moment/moment";
+import {connect} from 'react-redux';
+import {fetchMeeting, deleteMeeting} from "../../store/actions/meetingActions";
 
+
+@connect((state) => {
+    return {
+        meeting: state.meeting.meeting,
+        fetching: state.meeting.fetching,
+        fetched: state.meeting.fetched,
+        deleting: state.meeting.deleting,
+        deleted: state.meeting.deleted
+    }
+})
 class Show extends Component {
     constructor() {
         super();
@@ -12,24 +24,41 @@ class Show extends Component {
         }
     }
 
-    componentDidMount() {
-        axios.get(`/api/meeting/${this.props.match.params.id}`)
-            .then(res => {
-                this.setState({meeting: res.data});
-                console.log(this.state.meeting);
-            })
+    componentWillMount() {
+      this.props.dispatch(fetchMeeting(this.props.match.params.id))
     }
 
     delete(id) {
-        console.log(id);
-        axios.delete(`/api/meeting/${id}`)
-            .then((res) => {
-                this.props.history.push('/');
-            });
+        this.props.dispatch(deleteMeeting(id));
+    }
+
+    componentWillReceiveProps(nextProps){
+        if (!!nextProps.deleted) {
+           this.props.history.push('/');
+        }
+        if (!!nextProps.meeting) {
+            const meeting = nextProps.meeting;
+            this.setState({meeting});
+        }
     }
 
 
     render() {
+        const {meeting, fetching} = this.props;
+
+        if (fetching && !meeting.length) {
+            return (
+                <Container style={{padding: '5em 0em'}}>
+                    <Segment>
+                        <Dimmer active inverted>
+                            <Loader size='massive' inverted>
+                                Loading
+                            </Loader>
+                        </Dimmer>
+                    </Segment>
+                </Container>
+            )
+        }
         return (
             <Container style={{padding: '5em 0em'}}>
                 <Message>
@@ -56,7 +85,8 @@ class Show extends Component {
                                         </Button.Content>
                                     </Button>
                                 </Link>
-                                <Button animated floated='right' color='orange' onClick={this.delete.bind(this, this.state.meeting._id)}>
+                                <Button animated floated='right' color='orange'
+                                        onClick={this.delete.bind(this, this.state.meeting._id)}>
                                     <Button.Content hidden>Delete</Button.Content>
                                     <Button.Content visible>
                                         <Icon name='trash'/>
@@ -69,7 +99,8 @@ class Show extends Component {
                                     <List.Item icon={'user'}
                                                content={`You meet ${this.state.meeting.firstName} ${this.state.meeting.lastName}`}/>
                                     <List.Item icon='mail' content={`${this.state.meeting.email}`}/>
-                                    <List.Item icon='calendar' content={`${moment(this.state.meeting.date).format("YYYY-MM-DD HH:mm")}`}/>
+                                    <List.Item icon='calendar'
+                                               content={`${moment(this.state.meeting.date).format("YYYY-MM-DD HH:mm")}`}/>
                                 </List>
                             </Grid.Row>
                         </Grid>
