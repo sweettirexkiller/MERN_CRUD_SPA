@@ -5,6 +5,7 @@ import {Container, Message, Button, Icon, Form} from 'semantic-ui-react';
 import DateTime from 'react-datetime';
 import {connect} from 'react-redux';
 import {addMeeting} from "../../store/actions/meetingActions";
+import moment from "moment";
 
 @connect((state)=>{
     return {
@@ -49,7 +50,7 @@ class Create extends Component {
 
     handleCalendarChange = (date) => {
         let meeting = Object.assign({}, this.state.meeting);
-        meeting.date = date;
+        meeting.date = date.format("YYYY-MM-DD HH:mm");
         this.setState({meeting});
 
         if(!!this.props.errors['date']){
@@ -64,7 +65,7 @@ class Create extends Component {
     }
 
     render() {
-        const {firstName, lastName, email} = this.state.meeting;
+        const {firstName, lastName, email, date} = this.state.meeting;
         const {errors} = this.props;
         return (
             <Container style={{padding: '5em 0em'}}>
@@ -102,7 +103,7 @@ class Create extends Component {
                             </Form.Field>
                             <Form.Field error={!!errors.date}>
                                 <label>Date</label>
-                                <DateTime onChange={this.handleCalendarChange}/>
+                                <DateTime onChange={this.handleCalendarChange} inputProps={{value: moment(date).isValid() ? moment(date).format("YYYY-MM-DD HH:mm") : date, placeholder: 'Date'}}/>
                                 {errors.date ? <Message negative floating content={errors.date.msg}></Message> : ''}
                             </Form.Field>
                             <Button type="submit">Submit</Button>

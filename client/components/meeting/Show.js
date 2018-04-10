@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import {Container, Message, Button, Icon, List, Grid} from 'semantic-ui-react';
+import moment from "moment/moment";
 
 class Show extends Component {
     constructor() {
@@ -68,7 +69,7 @@ class Show extends Component {
                                     <List.Item icon={'user'}
                                                content={`You meet ${this.state.meeting.firstName} ${this.state.meeting.lastName}`}/>
                                     <List.Item icon='mail' content={`${this.state.meeting.email}`}/>
-                                    <List.Item icon='calendar' content={`${this.state.meeting.date}`}/>
+                                    <List.Item icon='calendar' content={`${moment(this.state.meeting.date).format("YYYY-MM-DD HH:mm")}`}/>
                                 </List>
                             </Grid.Row>
                         </Grid>

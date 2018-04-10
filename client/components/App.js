@@ -5,6 +5,7 @@ import axios from 'axios';
 import {connect} from 'react-redux';
 import {fetchMeetings} from "../store/actions/meetingActions";
 import '../styles/App.scss';
+import moment from "moment";
 
 @connect((store)=>{
     return {
@@ -53,7 +54,7 @@ class App extends Component {
                                         <Table.Cell>{meeting.firstName}</Table.Cell>
                                         <Table.Cell>{meeting.lastName}</Table.Cell>
                                         <Table.Cell>{meeting.email}</Table.Cell>
-                                        <Table.Cell>{meeting.date}</Table.Cell>
+                                        <Table.Cell>{moment(meeting.date).format("YYYY-MM-DD HH:mm")}</Table.Cell>
                                         <Table.Cell>
                                             <Link to={`/show/${meeting._id}`}>
                                                 <Button animated>
