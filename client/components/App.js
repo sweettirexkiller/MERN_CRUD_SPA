@@ -2,29 +2,30 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import {Container, Message, Table, Button, Icon, Grid} from 'semantic-ui-react';
 import axios from 'axios';
-
-
+import {connect} from 'react-redux';
+import {fetchMeetings} from "../store/actions/meetingActions";
 import '../styles/App.scss';
 
+@connect((store)=>{
+    return {
+        meetings: store.meeting.meetings
+    }
+})
 class App extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            meetings: []
-        };
-    }
+    componentWillMount() {
+        this.props.dispatch(fetchMeetings())
 
-    componentDidMount() {
-        axios.get('/api/meeting')
-            .then(res => {
-                this.setState({meetings: res.data});
-                console.log(this.state.meetings);
-            });
+        // axios.get('/api/meeting')
+        //     .then(res => {
+        //         this.setState({meetings: res.data});
+        //         console.log(this.state.meetings);
+        //     });
     }
 
 
     render() {
+        console.log(this.props);
         return (
             <Container style={{padding: '5em 0em'}}>
                 <Message>
@@ -52,7 +53,7 @@ class App extends Component {
                                 </Table.Row>
                             </Table.Header>
                             <Table.Body>
-                                {this.state.meetings.map(meeting => (
+                                {this.props.meetings.map(meeting => (
                                     <Table.Row>
                                         <Table.Cell><Link
                                             to={`/show/${meeting._id}`}>{meeting._id}</Link></Table.Cell>
