@@ -1,24 +1,41 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import {Container, Message, Table, Button, Icon, Grid} from 'semantic-ui-react';
+import {Container, Message, Table, Button, Icon, Dimmer, Loader, Image, Segment} from 'semantic-ui-react';
 import axios from 'axios';
 import {connect} from 'react-redux';
 import {fetchMeetings} from "../store/actions/meetingActions";
 import '../styles/App.scss';
 import moment from "moment";
 
-@connect((store) => {
+@connect((state) => {
     return {
-        meetings: store.meeting.meetings
+        meetings: state.meeting.meetings,
+        fetching: state.meeting.fetching,
+        fetched: state.meeting.fetched
     }
 })
 class App extends Component {
 
-    componentWillMount() {
+    componentDidMount() {
         this.props.dispatch(fetchMeetings())
     }
 
     render() {
+        const {meetings, fetching} = this.props;
+
+        if (fetching && !meetings.length) {
+            return (
+                <Container style={{padding: '5em 0em'}}>
+                    <Segment>
+                        <Dimmer active inverted>
+                            <Loader size='massive' inverted>
+                                Loading
+                            </Loader>
+                        </Dimmer>
+                    </Segment>
+                </Container>
+            )
+        }
         return (
             <Container style={{padding: '5em 0em'}}>
                 <Message>
@@ -46,7 +63,7 @@ class App extends Component {
                                 </Table.Row>
                             </Table.Header>
                             <Table.Body>
-                                {this.props.meetings.map(meeting => (
+                                {meetings.map(meeting => (
                                     <Table.Row>
                                         <Table.Cell><Link
                                             to={`/show/${meeting._id}`}>{meeting._id}</Link></Table.Cell>

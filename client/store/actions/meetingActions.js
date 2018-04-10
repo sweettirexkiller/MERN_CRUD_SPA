@@ -2,47 +2,52 @@ import axios from "axios/index";
 
 export function fetchMeetings(){
     return function(dispatch){
+        dispatch({type: 'FETCH_MEETINGS_STARTED'});
         axios.get('/api/meeting')
             .then(res => {
-                dispatch({type: 'MEETINGS_FETCHED', payload: res.data})
+                dispatch({type: 'FETCH_MEETINGS_FULFILLED', payload: res.data})
             })
             .catch(err => {
-                dispatch({type: 'MEETINGS_FETCHED_ERRORS', payload: err})
+                dispatch({type: 'FETCH_MEETINGS_ERROR', payload: err})
             });
     }
 }
 
 export function addMeeting(meeting){
     return function(dispatch){
+        dispatch({type: 'ADD_MEETING_STARTED'});
         axios.post('/api/meeting', meeting)
             .then((res) => {
-                dispatch({type: 'MEETING_ADDED', payload: true})
+                dispatch({type: 'ADD_MEETING_FULFILLED'})
             })
             .catch((err) => {
-                dispatch({type: 'MEETING_ADDED_ERROR', payload: err.response.data.errors})
+                dispatch({type: 'ADD_MEETING_ERROR', payload: err.response.data.errors})
             });
     }
 }
 
 export function fetchMeeting(id){
     return function(dispatch){
+        dispatch({type: 'FETCH_MEETING_STARTED'});
         axios.get(`/api/meeting/${id}`)
             .then(res => {
-                dispatch({type: 'MEETING_FETCHED', payload: res.data})
+                dispatch({type: 'FETCH_MEETING_FULFILLED', payload: res.data})
             })
             .catch(err => {
-                dispatch({type: 'MEETING_FETCHED_ERROR', payload: err})
+                dispatch({type: 'FETCH_MEETING_ERROR', payload: err})
             });
     }
 }
 export function updateMeeting(meeting){
     return function(dispatch){
-        axios.put(`/api/meeting/${this.state.meeting._id}`, meeting)
+        dispatch({type: 'UPDATE_MEETING_STARTED'});
+
+        axios.put(`/api/meeting/${meeting._id}`, meeting)
             .then((res) =>  {
-                dispatch({type: 'MEETING_UPDATE_COMPLETE', payload: true})
+                dispatch({type: 'UPDATE_MEETING_FULFILLED'})
             })
             .catch((err) => {
-                dispatch({type: 'MEETING_UPDATE_ERROR', payload: err})
+                dispatch({type: 'UPDATE_MEETING_ERROR', payload: err})
             });
 
 

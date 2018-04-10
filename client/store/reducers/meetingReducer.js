@@ -1,29 +1,62 @@
-export default function reducer(state = {meetings: [], errors: {}, meetingAdded: false, meeting: {}, meetingUpdated: false}, action) {
+export default function reducer(state = {
+    meetings: [],
+    meeting: {},
+    fetching: false,
+    fetched: false,
+    adding: false,
+    added: false,
+    updating: false,
+    updated: false,
+    errors: {},
+}, action) {
     switch (action.type) {
-        case 'MEETINGS_FETCHED': {
-            return {...state, meetings: action.payload}
+
+        /*INDEX*/
+        case 'FETCH_MEETINGS_STARTED': {
+            return {...state, fetching: true}
         }
-        case 'MEETINGS_FETCHED_ERROR': {
-            return {...state, errors: action.payload}
+        case 'FETCH_MEETINGS_FULFILLED': {
+            return {...state, meetings: action.payload, fetching: false, fetched: true}
         }
-        case 'MEETING_ADDED': {
-            return {...state, meetingAdded: action.payload}
+        case 'FETCH_MEETINGS_ERROR': {
+            return {...state, errors: action.payload, fetching: false, fetched: false}
+        }
+
+        /*STORE*/
+        case 'ADD_MEETING_STARTED': {
+            return {...state, adding: true}
+        }
+        case 'ADD_MEETING_FULFILLED': {
+            return {...state, meeting: action.payload, added: true, adding: false}
         }
         case 'MEETING_ADDED_ERROR': {
-            return {...state, errors: action.payload}
+            return {...state, errors: action.payload, added: false, adding: false}
         }
-        case 'MEETING_FETCHED': {
-            return {...state, meeting: action.payload}
+
+        /*SHOW*/
+        case 'FETCH_MEETING_STARTED': {
+            return {...state, fetching: true}
         }
-        case 'MEETING_FETCHED_ERROR': {
-            return {...state, errors: action.payload}
+
+        case 'FETCH_MEETING_FULFILLED': {
+            return {...state, meeting: action.payload, fetching: false, fetched: true}
+        }
+
+        case 'FETCH_MEETING_ERROR': {
+            return {...state, errors: action.payload, fetching: false, fetched: false}
+        }
+
+        /*UPDATE*/
+        case 'UPDATE_MEETING_STARTED': {
+            return {...state, updating: true}
         }
         case 'MEETING_UPDATE_COMPLETE': {
-            return {...state, meetingUpdated: action.payload}
+            return {...state, meeting: action.payload, updating: false, updated: true}
         }
         case 'MEETING_UPDATE_ERROR': {
-            return {...state, errors: action.payload}
+            return {...state, errors: action.payload, updating: false, updated: false}
         }
+
         default: {
             return state
         }

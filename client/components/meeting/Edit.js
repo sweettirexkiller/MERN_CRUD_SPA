@@ -5,13 +5,17 @@ import {Container, Message, Button, Icon, Form, Grid} from 'semantic-ui-react';
 import DateTime from 'react-datetime';
 import moment from "moment";
 import {connect} from 'react-redux'
-import {fetchMeeting, updateMeeting, fetchMeetings} from "../../store/actions/meetingActions";
+import {fetchMeeting, updateMeeting} from "../../store/actions/meetingActions";
 
 
-@connect((state)=>{
+@connect((state) => {
     return {
         meeting: state.meeting.meeting,
-        meetingUpdated: state.meeting.meetingUpdated
+        fetching: state.meeting.fetching,
+        fetched: state.meeting.fetched,
+        updated: state.meeting.updated,
+        updating: state.meeting.updating,
+        errors: state.meeting.errors
     }
 })
 class Edit extends Component {
@@ -25,8 +29,8 @@ class Edit extends Component {
         this.handleCalendarChange = this.onSubmit.bind(this);
     }
 
-    componentWillMount() {
-        this.props.dispatch(fetchMeetings());
+    componentDidMount() {
+        this.props.dispatch(fetchMeeting(this.props.match.params._id));
     }
 
     onChange(e) {
@@ -34,9 +38,8 @@ class Edit extends Component {
         meeting[e.target.name] = e.target.value;
         this.setState({meeting});
 
-        if(!!this.props.errors[e.target.name]){
-            let errors = Object.assign({}, this.props.errors);
-            delete errors[e.target.name];
+        if (!!this.props.errors[e.target.name]) {
+            delete this.props.errors[e.target.name];
         }
     }
 
@@ -51,15 +54,13 @@ class Edit extends Component {
         meeting.date = date.format("YYYY-MM-DD HH:mm");
         this.setState({meeting});
 
-        if(!!this.state.errors['date']){
-            let errors = Object.assign({}, this.state.errors);
-            delete errors['date'];
+        if (!!this.props.errors['date']) {
+            delete this.props.errors['date'];
         }
     };
 
     componentWillUpdate(nextProps) {
-        console.log(nextProps);
-        if (!!nextProps.meetingUpdated) {
+        if (!!nextProps.updated) {
             this.props.history.push(`/show/${this.state.meeting._id}`)
         }
         if (!!nextProps.meeting) {
@@ -70,12 +71,24 @@ class Edit extends Component {
 
 
     render() {
-        console.log(this.props);
-        const {firstName, lastName, email, date, errors} = this.props.meeting;
+        const {meeting, fetching} = this.props;
 
-        if (isFetching && !movies.length) {
-            return <p>Loading...</p>;
+        if (fetching && !meeting.length) {
+            return (
+                <Container style={{padding: '5em 0em'}}>
+                    <Segment>
+                        <Dimmer active inverted>
+                            <Loader size='massive' inverted>
+                                Loading
+                            </Loader>
+                        </Dimmer>
+                    </Segment>
+                </Container>
+            )
         }
+
+        const {firstName, lastName, email, date, errors} = this.state.meeting;
+
         return (
             <Container style={{padding: '5em 0em'}}>
                 <Message>
@@ -111,26 +124,33 @@ class Edit extends Component {
                                         <input type="text" name="firstName" placeholder="First Name"
                                                value={firstName}
                                                onChange={this.onChange}/>
-                                        {errors.firstName ? <Message negative floating content={errors.firstName.msg}></Message> : ''}
+                                        {errors.firstName ?
+                                            <Message negative floating content={errors.firstName.msg}></Message> : ''}
                                     </Form.Field>
                                     <Form.Field error={!!errors.lastName}>
                                         <label>Last Name</label>
                                         <input type="text" name="lastName" placeholder="Last Name" value={lastName}
                                                onChange={this.onChange}/>
-                                        {errors.lastName ? <Message negative floating content={errors.lastName.msg}></Message> : ''}
+                                        {errors.lastName ?
+                                            <Message negative floating content={errors.lastName.msg}></Message> : ''}
 
                                     </Form.Field>
                                     <Form.Field error={!!errors.email}>
                                         <label>Email</label>
                                         <input type="email" name="email" placeholder="Last Name" value={email}
                                                onChange={this.onChange}/>
-                                        {errors.email ? <Message negative floating content={errors.email.msg}></Message> : ''}
+                                        {errors.email ?
+                                            <Message negative floating content={errors.email.msg}></Message> : ''}
 
                                     </Form.Field>
                                     <Form.Field error={!!errors.date}>
                                         <label>Date</label>
-                                        <DateTime onChange={this.handleCalendarChange} inputProps={{value: moment(date).isValid() ? moment(date).format("YYYY-MM-DD HH:mm") : date, placeholder: 'Date'}}/>
-                                        {errors.date ? <Message negative floating content={errors.date.msg}></Message> : ''}
+                                        <DateTime onChange={this.handleCalendarChange} inputProps={{
+                                            value: moment(date).isValid() ? moment(date).format("YYYY-MM-DD HH:mm") : date,
+                                            placeholder: 'Date'
+                                        }}/>
+                                        {errors.date ?
+                                            <Message negative floating content={errors.date.msg}></Message> : ''}
                                     </Form.Field>
                                     <Button type="submit">Submit</Button>
                                 </Form>

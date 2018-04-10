@@ -10,8 +10,8 @@ import moment from "moment";
 @connect((state)=>{
     return {
         meetings: state.meeting.meetings,
-        errors: state.meeting.errors,
-        meetingAdded: state.meeting.meetingAdded
+        fetching: state.meeting.fetching,
+        fetched: state.meeting.fetched
     }
 })
 
