@@ -48,10 +48,10 @@ export function updateMeeting(meeting) {
         axios.put(`/api/meeting/${meeting._id}`, meeting)
             .then((res) => {
                 dispatch({type: 'UPDATE_MEETING_FULFILLED', payload: res.data});
-                dispatch(push(`/show/${meeting.id}`));
+                dispatch(push(`/show/${res.data._id}`));
             })
             .catch((err) => {
-                dispatch({type: 'UPDATE_MEETING_ERROR', payload: err})
+                dispatch({type: 'UPDATE_MEETING_ERROR', payload: err.response.data.errors})
             });
 
 

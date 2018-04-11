@@ -30,6 +30,7 @@ class Create extends Component {
         };
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+        this.handleSelect = this.handleSelect.bind(this);
     }
 
     onChange(e) {
@@ -48,16 +49,15 @@ class Create extends Component {
         this.props.dispatch(addMeeting(this.state.meeting));
     }
 
-    handleCalendarChange = (date) => {
-        let meeting = Object.assign({}, this.state.meeting);
-        meeting.date = date.format("YYYY-MM-DD HH:mm");
+    handleSelect(date){
+        const meeting = this.state.meeting;
+        meeting['date'] = date.format("YYYY-MM-DD HH:mm");
         this.setState({meeting});
 
         if(!!this.props.errors['date']){
-            delete this.state.errors['date'];
+            delete this.props.errors['date'];
         }
-    };
-
+    }
     render() {
         const {firstName, lastName, email, date} = this.state.meeting;
         const {errors} = this.props;
@@ -91,13 +91,18 @@ class Create extends Component {
                             </Form.Field>
                             <Form.Field error={!!errors.email}>
                                 <label>Email</label>
-                                <input type="email" name="email" placeholder="Last Name" value={email}
+                                <input type="email" name="email" placeholder="Email" value={email}
                                        onChange={this.onChange}/>
                                 {errors.email ? <Message negative floating content={errors.email.msg}></Message> : ''}
                             </Form.Field>
                             <Form.Field error={!!errors.date}>
                                 <label>Date</label>
-                                <DateTime onChange={this.handleCalendarChange} closeOnSelect={true} inputProps={{value: moment(date).isValid() ? moment(date).format("YYYY-MM-DD HH:mm") : date, placeholder: 'Date'}}/>
+                                <DateTime value={date} onChange={this.handleSelect} inputProps={{
+                                    value: moment(date).isValid() ? moment(date).format("YYYY-MM-DD HH:mm") : date,
+                                    placeholder: 'Date',
+                                    onChange: this.onChange,
+                                    name: 'date'
+                                }}/>
                                 {errors.date ? <Message negative floating content={errors.date.msg}></Message> : ''}
                             </Form.Field>
                             <Button type="submit">Submit</Button>

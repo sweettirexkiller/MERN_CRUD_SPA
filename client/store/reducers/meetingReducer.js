@@ -31,7 +31,7 @@ export default function reducer(state = {
         case 'ADD_MEETING_FULFILLED': {
             return {...state, meeting: action.payload, added: true, adding: false}
         }
-        case 'MEETING_ADDED_ERROR': {
+        case 'ADD_MEETING_ERROR': {
             return {...state, errors: action.payload, added: false, adding: false}
         }
 
