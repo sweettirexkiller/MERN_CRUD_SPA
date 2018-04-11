@@ -14,3 +14,4 @@
 - Express (express-validator, controllers, routes, views engine - it uses views created  by htmlwebpackplugin)
 - ReactJs (redux, react-router-redux, react-semantic-ui)
 - Webpack 4 
+ 
