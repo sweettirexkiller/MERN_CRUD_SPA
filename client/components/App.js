@@ -64,7 +64,7 @@ class App extends Component {
                             </Table.Header>
                             <Table.Body>
                                 {meetings.map(meeting => (
-                                    <Table.Row>
+                                    <Table.Row key={meeting._id}>
                                         <Table.Cell><Link
                                             to={`/show/${meeting._id}`}>{meeting._id}</Link></Table.Cell>
                                         <Table.Cell>{meeting.firstName}</Table.Cell>
