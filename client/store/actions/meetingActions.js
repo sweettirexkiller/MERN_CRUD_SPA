@@ -68,3 +68,9 @@ export function deleteMeeting(id){
 
     }
 }
+
+export function resetMeetingState(){
+    return function(dispatch){
+        dispatch({type: 'RESET_MEETING_STATE'});
+    }
+}

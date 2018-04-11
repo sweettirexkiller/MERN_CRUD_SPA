@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {HashRouter as Router, Route} from 'react-router-dom';
+import {HashRouter as Router, Route, Switch} from 'react-router-dom';
 
 import 'semantic-ui-css/semantic.min.css';
 import './styles/index.scss';
@@ -10,17 +10,17 @@ import Edit from './components/meeting/Edit';
 import Create from './components/meeting/Create';
 import Show from './components/meeting/Show';
 import {Provider} from 'react-redux';
-import store from './store/store';
+import store from './store/store.js';
 
 ReactDOM.render(
     <Provider store={store}>
         <Router>
-            <div>
+            <Switch>
                 <Route exact path='/' component={App}/>
                 <Route path='/edit/:id' component={Edit}/>
                 <Route path='/create' component={Create}/>
                 <Route path='/show/:id' component={Show}/>
-            </div>
+            </Switch>
         </Router>
     </Provider>
     , document.getElementById('root')

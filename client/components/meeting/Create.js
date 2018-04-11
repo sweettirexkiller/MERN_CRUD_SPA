@@ -59,9 +59,7 @@ class Create extends Component {
     };
 
     componentWillReceiveProps(nextProps) {
-        if (!!nextProps.added) {
-            this.props.history.push('/');
-        }
+
     }
 
     render() {

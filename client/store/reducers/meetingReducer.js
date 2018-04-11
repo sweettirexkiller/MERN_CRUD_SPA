@@ -70,6 +70,12 @@ export default function reducer(state = {
             return {...state, errors: action.payload, deleting: false, deleted: false}
         }
 
+
+        case 'RESET_MEETING_STATE': {
+            return {...state}
+        }
+
+
         default: {
             return state
         }

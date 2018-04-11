@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import axios from 'axios';
 import {Container, Message, Button, Icon, List, Grid, Segment, Dimmer, Loader} from 'semantic-ui-react';
 import moment from "moment/moment";
 import {connect} from 'react-redux';
-import {fetchMeeting, deleteMeeting} from "../../store/actions/meetingActions";
+import {fetchMeeting, deleteMeeting, resetMeetingState} from "../../store/actions/meetingActions";
 
 
 @connect((state) => {
@@ -25,17 +24,14 @@ class Show extends Component {
     }
 
     componentWillMount() {
-      this.props.dispatch(fetchMeeting(this.props.match.params.id))
+        this.props.dispatch(fetchMeeting(this.props.match.params.id))
     }
 
     delete(id) {
         this.props.dispatch(deleteMeeting(id));
     }
 
-    componentWillReceiveProps(nextProps){
-        if (!!nextProps.deleted) {
-           this.props.history.push('/');
-        }
+    componentWillReceiveProps(nextProps) {
         if (!!nextProps.meeting) {
             const meeting = nextProps.meeting;
             this.setState({meeting});
