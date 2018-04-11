@@ -1,7 +1,8 @@
 import axios from "axios/index";
+import {push} from 'react-router-redux';
 
-export function fetchMeetings(){
-    return function(dispatch){
+export function fetchMeetings() {
+    return function (dispatch) {
         dispatch({type: 'FETCH_MEETINGS_STARTED'});
         axios.get('/api/meeting')
             .then(res => {
@@ -13,12 +14,13 @@ export function fetchMeetings(){
     }
 }
 
-export function addMeeting(meeting){
-    return function(dispatch){
+export function addMeeting(meeting) {
+    return function (dispatch) {
         dispatch({type: 'ADD_MEETING_STARTED'});
         axios.post('/api/meeting', meeting)
             .then((res) => {
                 dispatch({type: 'ADD_MEETING_FULFILLED', payload: res.data})
+                dispatch(push('/'));
             })
             .catch((err) => {
                 dispatch({type: 'ADD_MEETING_ERROR', payload: err.response.data.errors})
@@ -26,8 +28,8 @@ export function addMeeting(meeting){
     }
 }
 
-export function fetchMeeting(id){
-    return function(dispatch){
+export function fetchMeeting(id) {
+    return function (dispatch) {
         dispatch({type: 'FETCH_MEETING_STARTED'});
         axios.get(`/api/meeting/${id}`)
             .then(res => {
@@ -38,13 +40,15 @@ export function fetchMeeting(id){
             });
     }
 }
-export function updateMeeting(meeting){
-    return function(dispatch){
+
+export function updateMeeting(meeting) {
+    return function (dispatch) {
         dispatch({type: 'UPDATE_MEETING_STARTED'});
 
         axios.put(`/api/meeting/${meeting._id}`, meeting)
-            .then((res) =>  {
-                dispatch({type: 'UPDATE_MEETING_FULFILLED', payload: res.data})
+            .then((res) => {
+                dispatch({type: 'UPDATE_MEETING_FULFILLED', payload: res.data});
+                dispatch(push(`/show/${meeting.id}`));
             })
             .catch((err) => {
                 dispatch({type: 'UPDATE_MEETING_ERROR', payload: err})
@@ -54,23 +58,18 @@ export function updateMeeting(meeting){
     }
 }
 
-export function deleteMeeting(id){
-    return function(dispatch){
+export function deleteMeeting(id) {
+    return function (dispatch) {
         dispatch({type: 'DELETE_MEETING_STARTED'});
         axios.delete(`/api/meeting/${id}`)
             .then((res) => {
-                dispatch({type: 'DELETE_MEETING_FULFILLED', payload: res.data})
+                dispatch({type: 'DELETE_MEETING_FULFILLED', payload: res.data});
+                dispatch(push('/'));
             })
             .catch((err) => {
                 dispatch({type: 'DELETE_MEETING_ERROR', payload: err})
             });
 
 
-    }
-}
-
-export function resetMeetingState(){
-    return function(dispatch){
-        dispatch({type: 'RESET_MEETING_STATE'});
     }
 }

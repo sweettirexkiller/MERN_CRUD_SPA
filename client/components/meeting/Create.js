@@ -58,10 +58,6 @@ class Create extends Component {
         }
     };
 
-    componentWillReceiveProps(nextProps) {
-
-    }
-
     render() {
         const {firstName, lastName, email, date} = this.state.meeting;
         const {errors} = this.props;
