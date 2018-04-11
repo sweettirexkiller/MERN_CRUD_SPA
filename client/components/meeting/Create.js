@@ -7,7 +7,7 @@ import {connect} from 'react-redux';
 import {addMeeting} from "../../store/actions/meetingActions";
 import moment from "moment";
 
-@connect((state)=>{
+@connect((state) => {
     return {
         added: state.meeting.added,
         adding: state.meeting.adding,
@@ -20,13 +20,13 @@ class Create extends Component {
         super();
         //dumb state
         this.state = {
-           meeting: {
-               isbn: '',
-               firstName: '',
-               lastName: '',
-               email: '',
-               date: ''
-           },
+            meeting: {
+                isbn: '',
+                firstName: '',
+                lastName: '',
+                email: '',
+                date: ''
+            },
         };
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
@@ -35,10 +35,14 @@ class Create extends Component {
 
     onChange(e) {
         const meeting = this.state.meeting;
-        meeting[e.target.name] = e.target.value;
+        if (e.target.name == 'date') {
+            meeting[e.target.name] = moment(e.target.value).format("YYYY-MM-DD HH:mm");
+        } else {
+            meeting[e.target.name] = e.target.value;
+        }
         this.setState({meeting});
 
-        if(!!this.props.errors[e.target.name]){
+        if (!!this.props.errors[e.target.name]) {
             delete this.props.errors[e.target.name];
         }
     }
@@ -49,15 +53,16 @@ class Create extends Component {
         this.props.dispatch(addMeeting(this.state.meeting));
     }
 
-    handleSelect(date){
+    handleSelect(date) {
         const meeting = this.state.meeting;
         meeting['date'] = date.format("YYYY-MM-DD HH:mm");
         this.setState({meeting});
 
-        if(!!this.props.errors['date']){
+        if (!!this.props.errors['date']) {
             delete this.props.errors['date'];
         }
     }
+
     render() {
         const {firstName, lastName, email, date} = this.state.meeting;
         const {errors} = this.props;
@@ -81,13 +86,15 @@ class Create extends Component {
                                 <label>First Name</label>
                                 <input type="text" name="firstName" placeholder="First Name" value={firstName}
                                        onChange={this.onChange}/>
-                                {errors.firstName ? <Message negative floating content={errors.firstName.msg}></Message> : ''}
+                                {errors.firstName ?
+                                    <Message negative floating content={errors.firstName.msg}></Message> : ''}
                             </Form.Field>
                             <Form.Field error={!!errors.lastName}>
                                 <label>Last Name</label>
                                 <input type="text" name="lastName" placeholder="Last Name" value={lastName}
                                        onChange={this.onChange}/>
-                                {errors.lastName ? <Message negative floating content={errors.lastName.msg}></Message> : ''}
+                                {errors.lastName ?
+                                    <Message negative floating content={errors.lastName.msg}></Message> : ''}
                             </Form.Field>
                             <Form.Field error={!!errors.email}>
                                 <label>Email</label>

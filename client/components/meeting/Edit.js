@@ -36,7 +36,11 @@ class Edit extends Component {
 
     onChange(e) {
         const meeting = this.state.meeting;
-        meeting[e.target.name] = e.target.value;
+        if (e.target.name == 'date') {
+            meeting[e.target.name] = moment(e.target.value).format("YYYY-MM-DD HH:mm");
+        } else {
+            meeting[e.target.name] = e.target.value;
+        }
         this.setState({meeting});
 
         if (!!this.props.errors[e.target.name]) {
