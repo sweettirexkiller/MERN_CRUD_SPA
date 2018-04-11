@@ -6,7 +6,7 @@
 ![config](config.png)
 4) compile bundles with `npm run build` / `yarn build`
 5) run node express server: `npm start`
-6) Go and see [http://localhost:8080](http://localhost:8080) !
+6) Go and see [http://localhost:3000](http://localhost:3000) !
 
 #### Technologies (MVC): 
 
