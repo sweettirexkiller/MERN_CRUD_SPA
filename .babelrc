@@ -1,4 +1,22 @@
 {
-  "presets": [["env", {"modules": false}],"react", "stage-1"],
-  "plugins": ["babel-plugin-transform-decorators-legacy"]
+  "presets": [
+    [
+      "env",
+      {
+        "modules": false
+      }
+    ],
+    "react",
+    "stage-1"
+  ],
+  "plugins": [
+    "babel-plugin-transform-decorators-legacy"
+  ],
+  "env": {
+    "test": {
+      "plugins": [
+        "transform-es2015-modules-commonjs"
+      ]
+    }
+  }
 }

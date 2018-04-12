@@ -3,8 +3,8 @@ import {Link} from 'react-router-dom';
 import {Container, Message, Table, Button, Icon, Dimmer, Loader, Image, Segment} from 'semantic-ui-react';
 import axios from 'axios';
 import {connect} from 'react-redux';
-import {fetchMeetings} from "../store/actions/meetingActions";
-import '../styles/App.scss';
+import {fetchMeetings} from "../../store/actions/meetingActions";
+import '../../styles/App.scss';
 import moment from "moment";
 
 @connect((state) => {
