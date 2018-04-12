@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import axios from 'axios';
 import {Container, Message, Button, Icon, Form, Grid, Segment, Dimmer, Loader} from 'semantic-ui-react';
-import DateTime from 'react-datetime';
+import {DatetimeInput} from 'react-datetime-inputs';
 import moment from "moment";
 import {connect} from 'react-redux'
 import {fetchMeeting, updateMeeting} from "../../store/actions/meetingActions";
@@ -26,7 +25,7 @@ class Edit extends Component {
         };
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
-        this.handleSelect = this.handleSelect.bind(this);
+        this.onDateTimeChange = this.onDateTimeChange.bind(this);
     }
 
 
@@ -35,12 +34,8 @@ class Edit extends Component {
     }
 
     onChange(e) {
-        const meeting = this.state.meeting;
-        if (e.target.name == 'date') {
-            meeting[e.target.name] = moment(e.target.value).format("YYYY-MM-DD HH:mm");
-        } else {
-            meeting[e.target.name] = e.target.value;
-        }
+        const meeting = Object.assign({}, this.state.meeting);
+        meeting[e.target.name] = e.target.value;
         this.setState({meeting});
 
         if (!!this.props.errors[e.target.name]) {
@@ -53,9 +48,10 @@ class Edit extends Component {
         this.props.dispatch(updateMeeting(this.state.meeting))
     }
 
-    handleSelect(date) {
-        const meeting = this.state.meeting;
-        meeting['date'] = date.format("YYYY-MM-DD HH:mm");
+    onDateTimeChange = (date) => {
+        let meeting = Object.assign({}, this.state.meeting);
+        meeting.date = String(moment(date).format("YYYY-MM-DD HH:mm"));
+        console.log(meeting.date);
         this.setState({meeting});
 
         if (!!this.props.errors['date']) {
@@ -145,17 +141,13 @@ class Edit extends Component {
 
                                     </Form.Field>
                                     <Form.Field error={!!errors.date}>
-                                        <label>Date</label>
-                                        <DateTime value={date} onChange={this.handleSelect} inputProps={{
-                                            value: moment(date).isValid() ? moment(date).format("YYYY-MM-DD HH:mm") : date,
-                                            placeholder: 'Date',
-                                            onChange: this.onChange,
-                                            name: 'date'
-                                        }}/>
-                                        {errors.date ?
-                                            <Message negative floating content={errors.date.msg}></Message> : ''}
+                                        <label>Date: {moment(date).format('YYYY-MM-DD HH:mm')} </label>
+                                        <DatetimeInput
+                                            placeholder={'Choose Date'}
+                                            onChange={this.onDateTimeChange}/>
+                                        {errors.date ? <Message negative floating content={errors.date.msg}/> : ''}
                                     </Form.Field>
-                                    <Button type="submit">Submit</Button>
+                                    <Button type="submit" style={{margin: '4em 0em 0em 0em'}}>Submit</Button>
                                 </Form>
                             </Grid.Row>
                         </Grid>

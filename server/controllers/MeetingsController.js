@@ -1,4 +1,4 @@
-var Meeting = require('../../models/Meeting');
+var Meeting = require('../models/Meeting');
 var {validationResult} = require('express-validator/check');
 
 exports.index = function (req, res, next) {
