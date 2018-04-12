@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDom from 'react-dom';
-import Root from '../../client/components/Root';
+import Root from './components/Root';
 import toJson from 'enzyme-to-json';
 import { shallow } from 'enzyme';
 

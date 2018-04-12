@@ -4,7 +4,7 @@ var config = require('../config');
 var router = require('./routes/routes.js');
 var meeting = require('./routes/api/meeting.js');
 
-var commonPath = require('../build-utils/common-path');
+var commonPath = require('../config/webpack/common-path');
 
 var bodyParser = require('body-parser');
 var app = express();
