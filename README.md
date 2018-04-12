@@ -7,11 +7,12 @@
 4) compile bundles with `npm run build` / `yarn build`
 5) run node express server: `npm start`
 6) Go and see [http://localhost:3000](http://localhost:3000) !
-
-#### Technologies (MVC): 
+7) *And additionally* : run tests with `yarn test`
+#### Technologies (MVC): Ķ
 
 - MongoDB (mongoose)
 - Express (express-validator, controllers, routes, views engine - it uses views created  by htmlwebpackplugin)
 - ReactJs (redux, react-router-redux, react-semantic-ui)
 - Webpack 4 
+- Jest & Enzyme testing
  
