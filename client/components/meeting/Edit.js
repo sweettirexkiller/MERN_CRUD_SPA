@@ -141,7 +141,7 @@ class Edit extends Component {
 
                                     </Form.Field>
                                     <Form.Field error={!!errors.date}>
-                                        <label>Date: {moment(date).format('YYYY-MM-DD HH:mm')} </label>
+                                        <label>Date: {moment(date).isValid() ? moment(date).format('YYYY-MM-DD HH:mm') : 'not chosen'} </label>
                                         <DatetimeInput
                                             placeholder={'Choose Date'}
                                             onChange={this.onDateTimeChange}/>

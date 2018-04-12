@@ -99,11 +99,12 @@ class Create extends Component {
                                 {errors.email ? <Message negative floating content={errors.email.msg}></Message> : ''}
                             </Form.Field>
                             <Form.Field error={!!errors.date}>
-                                <label>Date: {moment(date).format('YYYY-MM-DD HH:mm')} </label>
+                                <label>Date: {moment(date).isValid() ? moment(date).format('YYYY-MM-DD HH:mm') : 'not chosen'} </label>
                                 <DatetimeInput
                                     placeholder={'Choose Date'}
                                     onChange={this.onDateTimeChange}/>
-                                {errors.date ? <Message negative floating content={errors.date.msg} style={{margin: '4.5em 0em 0em 0em'}}/> : ''}
+                                {errors.date ? <Message negative floating content={errors.date.msg}
+                                                        style={{margin: '4.5em 0em 0em 0em'}}/> : ''}
                             </Form.Field>
                             <Button type="submit" style={{margin: '4em 0em 0em 0em'}}>Submit</Button>
                         </Form>
