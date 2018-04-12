@@ -51,7 +51,6 @@ class Create extends Component {
     onDateTimeChange = (date) => {
         let meeting = Object.assign({}, this.state.meeting);
         meeting.date = String(moment(date).format("YYYY-MM-DD HH:mm"));
-        console.log(meeting.date);
         this.setState({meeting});
 
         if (!!this.props.errors['date']) {
