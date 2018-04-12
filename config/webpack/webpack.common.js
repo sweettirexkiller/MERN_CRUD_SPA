@@ -8,7 +8,6 @@ const config = {
     entry: {},
     output: {
         path: commonPaths.outputPath,
-        publicPath: '/'
     },
     module: {
         rules: [
