@@ -8,10 +8,10 @@
 5) run node express server: `npm start`
 6) Go and see [http://localhost:3000](http://localhost:3000) !
 7) *And additionally* : run tests with `yarn test`
-#### Technologies (MVC): Ķ
+#### Technologies (MVC):
 
 - MongoDB (mongoose)
-- Express (express-validator, controllers, routes, views engine - it uses views created  by htmlwebpackplugin)
+- Express (express-validator, controllers, routes, views engine - it uses views created  by HtmlWebpackPlugin)
 - ReactJs (redux, react-router-redux, react-semantic-ui)
 - Webpack 4 
 - Jest & Enzyme testing

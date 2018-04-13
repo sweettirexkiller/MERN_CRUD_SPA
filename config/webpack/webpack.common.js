@@ -3,7 +3,6 @@ const commonPaths = require('./common-path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-
 const config = {
     entry: {},
     output: {
@@ -38,7 +37,7 @@ const config = {
                 'bundle.js',
                 'styles.css'
             ]
-        })
+        }),
     ]
 };
 
