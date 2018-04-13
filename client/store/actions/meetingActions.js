@@ -69,7 +69,5 @@ export function deleteMeeting(id) {
             .catch((err) => {
                 dispatch({type: 'DELETE_MEETING_ERROR', payload: err})
             });
-
-
     }
 }
