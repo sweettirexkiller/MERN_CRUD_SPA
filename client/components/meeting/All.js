@@ -4,7 +4,7 @@ import {Container, Message, Table, Button, Icon, Dimmer, Loader, Image, Segment}
 import axios from 'axios';
 import {connect} from 'react-redux';
 import {fetchMeetings} from "../../store/actions/meetingActions";
-import '../../styles/App.scss';
+import '../../styles/All.scss';
 import moment from "moment";
 
 @connect((state) => {
@@ -14,7 +14,7 @@ import moment from "moment";
         fetched: state.meeting.fetched
     }
 })
-class App extends Component {
+class All extends Component {
 
     componentDidMount() {
         this.props.dispatch(fetchMeetings())
@@ -100,4 +100,4 @@ class App extends Component {
     }
 }
 
-export default App;
+export default All;

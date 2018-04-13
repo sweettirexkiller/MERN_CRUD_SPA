@@ -5,7 +5,7 @@ import {ConnectedRouter} from 'react-router-redux'
 import 'semantic-ui-css/semantic.min.css';
 import '../styles/index.scss';
 
-import App from './meeting/App';
+import All from './meeting/All';
 import Edit from './meeting/Edit';
 import Create from './meeting/Create';
 import Show from './meeting/Show';
@@ -19,7 +19,7 @@ class Root extends Component {
             <Provider store={store}>
                 <ConnectedRouter history={history}>
                     <div>
-                        <Route exact path='/' component={App}/>
+                        <Route exact path='/' component={All}/>
                         <Route path='/edit/:id' component={Edit}/>
                         <Route path='/create' component={Create}/>
                         <Route path='/show/:id' component={Show}/>

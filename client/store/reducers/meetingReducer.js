@@ -1,16 +1,6 @@
-export default function reducer(state = {
-    meetings: [],
-    meeting: {},
-    fetching: false,
-    fetched: false,
-    adding: false,
-    added: false,
-    updating: false,
-    updated: false,
-    deleting: false,
-    deleted: false,
-    errors: {},
-}, action) {
+const initialState = require('../initialState');
+
+export default function reducer(state = initialState.default, action) {
     switch (action.type) {
 
         /*INDEX*/
@@ -70,14 +60,8 @@ export default function reducer(state = {
             return {...state, errors: action.payload, deleting: false, deleted: false}
         }
 
-
-        case 'RESET_MEETING_STATE': {
-            return {...state}
-        }
-
-
         default: {
-            return state
+            return {...state}
         }
     }
 }
