@@ -6,14 +6,14 @@ import {connect} from 'react-redux';
 import {fetchMeetings} from "../../store/actions/meetingActions";
 import '../../styles/All.scss';
 import moment from "moment";
-
-@connect((state) => {
-    return {
-        meetings: state.meeting.meetings,
-        fetching: state.meeting.fetching,
-        fetched: state.meeting.fetched
-    }
-})
+//
+// @connect((state) => {
+//     return {
+//         meetings: state.meeting.meetings,
+//         fetching: state.meeting.fetching,
+//         fetched: state.meeting.fetched
+//     }
+// })
 class All extends Component {
 
     componentDidMount() {
@@ -100,4 +100,13 @@ class All extends Component {
     }
 }
 
-export default All;
+const mapStateToProps = (state) => {
+    return {
+        meetings: state.meeting.meetings,
+        fetching: state.meeting.fetching,
+        fetched: state.meeting.fetched
+    }
+}
+
+export default connect(mapStateToProps)(All);
+export {All as PureAll};

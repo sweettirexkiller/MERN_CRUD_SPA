@@ -1,5 +1,5 @@
 import React from 'react';
-import All from './All';
+import PureAll from './All';
 import {Provider} from 'react-redux';
 import {shallow, mount} from 'enzyme';
 import thunk from 'redux-thunk';
@@ -14,7 +14,7 @@ describe('<All/>', () => {
 
     it('renders without crashing', () => {
         const store = mockStore(initialState);
-        const component = mount(<Provider store={store}><All/></Provider>);
+        const component = mount(<PureAll store={store}/>);
         expect(component).toBeTruthy();
     });
 });
