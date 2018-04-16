@@ -7,6 +7,8 @@ import promise from "redux-promise-middleware";
 import initialState from '../../store/initialState';
 
 import {PureAll} from "./All";
+import {Router} from 'react-router';
+import history from '../../store/history';
 import {mount} from 'enzyme';
 
 const middlewares = [thunk, promise];
@@ -16,6 +18,6 @@ describe('<All/>', () => {
 
     it('renders without crashing', () => {
         const store = mockStore(initialState);
-        const wrapper = mount(<PureAll store={store}/>);
+        const wrapper = mount(<Router history={history}><PureAll store={store}/></Router>);
     });
 });

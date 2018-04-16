@@ -56,7 +56,7 @@ class All extends Component {
                                 </Table.Row>
                             </Table.Header>
                             <Table.Body>
-                                {meetings.map(meeting => (
+                                {meetings ? meetings.map(meeting => (
                                     <Table.Row key={meeting._id}>
                                         <Table.Cell><Link
                                             to={`/show/${meeting._id}`}>{meeting._id}</Link></Table.Cell>
@@ -83,7 +83,7 @@ class All extends Component {
                                             </Link>
                                         </Table.Cell>
                                     </Table.Row>
-                                ))}
+                                )) : undefined}
                             </Table.Body>
                         </Table>
                     </Message.Content>
@@ -101,5 +101,5 @@ const mapStateToProps = (state) => {
     }
 };
 
-export {All as PureAll};
 export default connect(mapStateToProps)(All);
+export {All as PureAll};
