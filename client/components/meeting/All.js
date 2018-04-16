@@ -6,14 +6,7 @@ import {connect} from 'react-redux';
 import {fetchMeetings} from "../../store/actions/meetingActions";
 import '../../styles/All.scss';
 import moment from "moment";
-//
-// @connect((state) => {
-//     return {
-//         meetings: state.meeting.meetings,
-//         fetching: state.meeting.fetching,
-//         fetched: state.meeting.fetched
-//     }
-// })
+
 class All extends Component {
 
     componentDidMount() {

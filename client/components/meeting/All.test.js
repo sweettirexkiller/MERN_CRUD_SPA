@@ -4,10 +4,11 @@ import {Provider} from 'react-redux';
 import {shallow, mount} from 'enzyme';
 import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
+import reducer from '../../store/reducers/index';
 
 const middlewares = [thunk];
 
-const mockStore = configureMockStore(middlewares);
+const mockStore = configureMockStore(reducer,middlewares);
 import initialState from '../../store/initialState';
 
 describe('<All/>', () => {
