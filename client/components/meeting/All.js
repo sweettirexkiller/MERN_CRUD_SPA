@@ -14,7 +14,6 @@ class All extends Component {
     }
 
     render() {
-        console.log(this.props);
         const {meetings, fetching} = this.props;
 
         if (fetching && !meetings.length) {
