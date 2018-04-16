@@ -14,6 +14,7 @@ class All extends Component {
     }
 
     render() {
+        console.log(this.props);
         const {meetings, fetching} = this.props;
 
         if (fetching && !meetings.length) {
@@ -99,7 +100,7 @@ const mapStateToProps = (state) => {
         fetching: state.meeting.fetching,
         fetched: state.meeting.fetched
     }
-}
+};
 
-export default connect(mapStateToProps)(All);
 export {All as PureAll};
+export default connect(mapStateToProps)(All);
